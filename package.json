@@ -4,9 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "setup-dbs": "psql -f ./db/setup.sql",
+    "seed": "PGDATABASE=katatak_test node ./db/seeds/run-seed.js",
+    "test": "jest",
+    "start": "node listen.js",
+    "seed-prod": "NODE_ENV=production npm run seed"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "pg-format": "^1.0.4"
+  },
+  "dependencies": {
+    "pg": "^8.11.3"
+  }
 }
