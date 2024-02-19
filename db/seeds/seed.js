@@ -59,6 +59,7 @@ function seed(_a) {
                     return [4 /*yield*/, db.query("DROP TABLE IF EXISTS users;")];
                 case 6:
                     _b.sent();
+                    console.log(katasData);
                     return [4 /*yield*/, createUsers()];
                 case 7:
                     _b.sent();
