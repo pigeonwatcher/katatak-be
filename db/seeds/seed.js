@@ -42,7 +42,8 @@ async function createKatas() {
             description TEXT NOT NULL,
             test_path VARCHAR NOT NULL,
             difficulty VARCHAR NOT NULL,
-            date_created TIMESTAMP DEFAULT NOW()`
+            date_created TIMESTAMP DEFAULT NOW(),
+            votes INT DEFAULT 0 NOT NULL`
   );
 }
 
@@ -50,54 +51,55 @@ async function createTopics() {
   return await db.query(
     `CREATE TABLE topics 
         (topic_id SERIAL PRIMARY KEY,
-        conversation_id INT REFERENCES conversations(conversation_id),
-        user_id INT REFERENCES users(user_id),
-        body VARCHAR(100) NOT NULL)`
+          topic_name VARCHAR(20) NOT NULL,
+          description TEXT`
   );
 }
 
-async function insertUsers() {
-  const users = [["bigbeans"], ["eggman"]];
-
-  return await db.query(
-    format(
-      `INSERT INTO users (username)
-            VALUES
-            %L`,
-      users
-    )
-  );
+async function createSolutions() {
+  return await db.query(`CREATE TABLE solutions
+  (solution_id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(user_id) NOT NULL,
+    kata_id INT REFERENCES katas(kata_id) NOT NULL,
+    solution TEXT NOT NULL,
+    votes INTO DEFAULT 0 NOT NULL
+    )`);
 }
 
-async function insertConversations() {
-  const convos = [[1, 2]];
-
-  return await db.query(
-    format(
-      `INSERT INTO conversations (user_one, user_two)
-            VALUES
-            %L`,
-      convos
-    )
-  );
+async function createKataTopics() {
+  return await db.query(`CREATE TABLE kata_topics
+  (kata_topics_id SERIAL PRIMARY KEY,
+    kata_id INT REFERENCES katas(kata_id) NOT NULL,
+    topic_id INT REFERENCES topics(topic_id) NOT NULL
+    )`);
 }
 
-async function insertMessages() {
-  const message = [
-    [1, 1, "Hello!"],
-    [1, 2, "How are you?"],
-    [1, 1, "I am good, you?"],
-    [1, 2, "Calm"],
-  ];
-
-  return await db.query(
-    format(
-      `INSERT INTO messages (conversation_id, user_id, body)
-            VALUES
-            %L`,
-      message
-    )
-  );
+async function createComments() {
+  return await db.query(`CREATE TABLE comments
+  (comment_id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(user_id),
+    kata_id INT REFERENCES katas(kata_id),
+    comment_body TEXT NOT NULL
+    )`);
 }
+
+//await insertUsers();
+// await insertKatas();
+// await insertTopics();
+// await insertSolutions();
+// await insertKataTopics();
+// await insertComments();
+
+async function insertUsers() {}
+
+async function insertKatas() {}
+
+async function insertTopics() {}
+
+async function insertSolutions() {}
+
+async function insertKataTopics() {}
+
+async function insertComments() {}
 
 module.exports = { seed };
