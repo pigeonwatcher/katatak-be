@@ -36,64 +36,65 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var format = require("pg-format");
 var db = require("../connection").db;
-function seed() {
+function seed(_a) {
+    var usersData = _a.usersData, katasData = _a.katasData, topicsData = _a.topicsData, solutionsData = _a.solutionsData, kataTopicsData = _a.kataTopicsData, commentsData = _a.commentsData;
     return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0: return [4 /*yield*/, db.query("DROP TABLE IF EXISTS comments;")];
                 case 1:
-                    _a.sent();
+                    _b.sent();
                     return [4 /*yield*/, db.query("DROP TABLE IF EXISTS kata_topics;")];
                 case 2:
-                    _a.sent();
+                    _b.sent();
                     return [4 /*yield*/, db.query("DROP TABLE IF EXISTS solutions;")];
                 case 3:
-                    _a.sent();
+                    _b.sent();
                     return [4 /*yield*/, db.query("DROP TABLE IF EXISTS topics;")];
                 case 4:
-                    _a.sent();
+                    _b.sent();
                     return [4 /*yield*/, db.query("DROP TABLE IF EXISTS katas;")];
                 case 5:
-                    _a.sent();
+                    _b.sent();
                     return [4 /*yield*/, db.query("DROP TABLE IF EXISTS users;")];
                 case 6:
-                    _a.sent();
+                    _b.sent();
                     return [4 /*yield*/, createUsers()];
                 case 7:
-                    _a.sent();
+                    _b.sent();
                     return [4 /*yield*/, createKatas()];
                 case 8:
-                    _a.sent();
+                    _b.sent();
                     return [4 /*yield*/, createTopics()];
                 case 9:
-                    _a.sent();
+                    _b.sent();
                     return [4 /*yield*/, createSolutions()];
                 case 10:
-                    _a.sent();
+                    _b.sent();
                     return [4 /*yield*/, createKataTopics()];
                 case 11:
-                    _a.sent();
+                    _b.sent();
                     return [4 /*yield*/, createComments()];
                 case 12:
-                    _a.sent();
-                    return [4 /*yield*/, insertUsers()];
+                    _b.sent();
+                    return [4 /*yield*/, insertUsers(usersData)];
                 case 13:
-                    _a.sent();
-                    return [4 /*yield*/, insertKatas()];
+                    _b.sent();
+                    return [4 /*yield*/, insertKatas(katasData)];
                 case 14:
-                    _a.sent();
-                    return [4 /*yield*/, insertTopics()];
+                    _b.sent();
+                    return [4 /*yield*/, insertTopics(topicsData)];
                 case 15:
-                    _a.sent();
-                    return [4 /*yield*/, insertSolutions()];
+                    _b.sent();
+                    return [4 /*yield*/, insertSolutions(solutionsData)];
                 case 16:
-                    _a.sent();
-                    return [4 /*yield*/, insertKataTopics()];
+                    _b.sent();
+                    return [4 /*yield*/, insertKataTopics(kataTopicsData)];
                 case 17:
-                    _a.sent();
-                    return [4 /*yield*/, insertComments()];
+                    _b.sent();
+                    return [4 /*yield*/, insertComments(commentsData)];
                 case 18:
-                    _a.sent();
+                    _b.sent();
                     return [2 /*return*/];
             }
         });
@@ -159,34 +160,112 @@ function createComments() {
         });
     });
 }
-function insertUsers() {
-    return __awaiter(this, void 0, void 0, function () { return __generator(this, function (_a) {
-        return [2 /*return*/];
-    }); });
+function insertUsers(usersData) {
+    return __awaiter(this, void 0, void 0, function () {
+        var usersQuery, result;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    usersQuery = format('INSERT INTO users (username, bio, avatar_img_url) VALUES %L RETURNING *;', usersData.map(function (_a) {
+                        var username = _a.username, bio = _a.bio, avatar_img_url = _a.avatar_img_url;
+                        return [username, bio, avatar_img_url];
+                    }));
+                    return [4 /*yield*/, db.query(usersQuery)];
+                case 1:
+                    result = _a.sent();
+                    return [2 /*return*/, result];
+            }
+        });
+    });
 }
-function insertKatas() {
-    return __awaiter(this, void 0, void 0, function () { return __generator(this, function (_a) {
-        return [2 /*return*/];
-    }); });
+function insertKatas(katasData) {
+    return __awaiter(this, void 0, void 0, function () {
+        var katasQuery, result;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    katasQuery = format('INSERT INTO katas (kata_name, description, test_path, difficulty) VALUES %L RETURNING *;', katasData.map(function (_a) {
+                        var kata_name = _a.kata_name, description = _a.description, test_path = _a.test_path, difficulty = _a.difficulty;
+                        return [kata_name, description, test_path, difficulty];
+                    }));
+                    return [4 /*yield*/, db.query(katasQuery)];
+                case 1:
+                    result = _a.sent();
+                    return [2 /*return*/, result];
+            }
+        });
+    });
 }
-function insertTopics() {
-    return __awaiter(this, void 0, void 0, function () { return __generator(this, function (_a) {
-        return [2 /*return*/];
-    }); });
+function insertTopics(topicsData) {
+    return __awaiter(this, void 0, void 0, function () {
+        var topicsQuery, result;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    topicsQuery = format('INSERT INTO topics (topic_name, description) VALUES %L RETURNING *;', topicsData.map(function (_a) {
+                        var topic_name = _a.topic_name, description = _a.description;
+                        return [topic_name, description];
+                    }));
+                    return [4 /*yield*/, db.query(topicsQuery)];
+                case 1:
+                    result = _a.sent();
+                    return [2 /*return*/, result];
+            }
+        });
+    });
 }
-function insertSolutions() {
-    return __awaiter(this, void 0, void 0, function () { return __generator(this, function (_a) {
-        return [2 /*return*/];
-    }); });
+function insertSolutions(solutionsData) {
+    return __awaiter(this, void 0, void 0, function () {
+        var solutionsQuery, result;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    solutionsQuery = format('INSERT INTO solutions (kata_id, user_id, solution) VALUES %L RETURNING *;', solutionsData.map(function (_a) {
+                        var kata_id = _a.kata_id, user_id = _a.user_id, solution = _a.solution;
+                        return [kata_id, user_id, solution];
+                    }));
+                    return [4 /*yield*/, db.query(solutionsQuery)];
+                case 1:
+                    result = _a.sent();
+                    return [2 /*return*/, result];
+            }
+        });
+    });
 }
-function insertKataTopics() {
-    return __awaiter(this, void 0, void 0, function () { return __generator(this, function (_a) {
-        return [2 /*return*/];
-    }); });
+function insertKataTopics(kataTopicsData) {
+    return __awaiter(this, void 0, void 0, function () {
+        var kataTopicsQuery, result;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    kataTopicsQuery = format('INSERT INTO kata_topics (kata_id, topic_id) VALUES %L RETURNING *;', kataTopicsData.map(function (_a) {
+                        var kata_id = _a.kata_id, topic_id = _a.topic_id;
+                        return [kata_id, topic_id];
+                    }));
+                    return [4 /*yield*/, db.query(kataTopicsQuery)];
+                case 1:
+                    result = _a.sent();
+                    return [2 /*return*/, result];
+            }
+        });
+    });
 }
-function insertComments() {
-    return __awaiter(this, void 0, void 0, function () { return __generator(this, function (_a) {
-        return [2 /*return*/];
-    }); });
+function insertComments(commentsData) {
+    return __awaiter(this, void 0, void 0, function () {
+        var commentsQuery, result;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    commentsQuery = format('INSERT INTO comments (user_id, kata_id, comment_body) VALUES %L RETURNING *;', commentsData.map(function (_a) {
+                        var user_id = _a.user_id, kata_id = _a.kata_id, comment_body = _a.comment_body;
+                        return [user_id, kata_id, comment_body];
+                    }));
+                    return [4 /*yield*/, db.query(commentsQuery)];
+                case 1:
+                    result = _a.sent();
+                    return [2 /*return*/, result];
+            }
+        });
+    });
 }
 module.exports = { seed: seed };
