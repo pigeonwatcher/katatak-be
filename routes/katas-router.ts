@@ -4,3 +4,5 @@ const katasRouter = require("express").Router();
 katasRouter.route("/").get(/*constoller */);
 
 katasRouter.route("/:kata_id").get(/*constoller */);
+
+module.exports = { katasRouter }
