@@ -1,0 +1,4 @@
+DROP DATABASE IF EXISTS katatak;
+DROP DATABASE IF EXISTS katatak_test;
+CREATE DATABASE katatak;
+CREATE DATABASE katatak_test;

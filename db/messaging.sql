@@ -1,2 +1,0 @@
-DROP DATABASE IF EXISTS messaging;
-CREATE DATABASE messaging;
