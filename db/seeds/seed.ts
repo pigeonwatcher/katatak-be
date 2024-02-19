@@ -1,7 +1,7 @@
 const format = require("pg-format");
 const { db } = require("../connection");
 
-async function seed() {
+async function seed({ usersData, katasData, topicsData, solutionsData, kataTopicsData, commentsData }) {
   await db.query("DROP TABLE IF EXISTS comments;");
   await db.query("DROP TABLE IF EXISTS kata_topics;");
   await db.query("DROP TABLE IF EXISTS solutions;");
@@ -16,12 +16,12 @@ async function seed() {
   await createKataTopics();
   await createComments();
 
-  await insertUsers();
-  await insertKatas();
-  await insertTopics();
-  await insertSolutions();
-  await insertKataTopics();
-  await insertComments();
+  await insertUsers(usersData);
+  await insertKatas(katasData);
+  await insertTopics(topicsData);
+  await insertSolutions(solutionsData);
+  await insertKataTopics(kataTopicsData);
+  await insertComments(commentsData);
 }
 
 async function createUsers() {
@@ -84,16 +84,87 @@ async function createComments() {
     )`);
 }
 
-async function insertUsers() {}
+async function insertUsers(usersData) {
+  const usersQuery = format(
+    'INSERT INTO users (username, bio, avatar_img_url) VALUES %L RETURNING *;',
+    usersData.map(({
+      username,
+      bio,
+      avatar_img_url
+    }) => [username, bio, avatar_img_url])  
+    );
 
-async function insertKatas() {}
+  const result = await db.query(usersQuery);
+  return result;
+}
 
-async function insertTopics() {}
+async function insertKatas(katasData) {
+  const katasQuery = format(
+    'INSERT INTO katas (kata_name, description, test_path, difficulty) VALUES %L RETURNING *;',
+    katasData.map(({
+      kata_name,
+      description,
+      test_path,
+      difficulty
+    }) => [kata_name, description, test_path, difficulty])  
+    );
 
-async function insertSolutions() {}
+  const result = await db.query(katasQuery);
+  return result;
+}
 
-async function insertKataTopics() {}
+async function insertTopics(topicsData) {
+  const topicsQuery = format(
+    'INSERT INTO topics (topic_name, description) VALUES %L RETURNING *;',
+    topicsData.map(({
+      topic_name,
+      description
+    }) => [topic_name, description])  
+    );
 
-async function insertComments() {}
+  const result = await db.query(topicsQuery);
+  return result;
+}
+
+async function insertSolutions(solutionsData) {
+  const solutionsQuery = format(
+    'INSERT INTO solutions (kata_id, user_id, solution) VALUES %L RETURNING *;',
+    solutionsData.map(({
+      kata_id,
+      user_id,
+      solution
+    }) => [kata_id, user_id, solution])  
+    );
+
+  const result = await db.query(solutionsQuery);
+  return result;
+}
+
+async function insertKataTopics(kataTopicsData) {
+  const kataTopicsQuery = format(
+    'INSERT INTO kata_topics (kata_id, topic_id) VALUES %L RETURNING *;',
+    kataTopicsData.map(({
+      kata_id,
+      topic_id
+    }) => [kata_id, topic_id])  
+    );
+
+  const result = await db.query(kataTopicsQuery);
+  return result;
+}
+
+async function insertComments(commentsData) {
+  const commentsQuery = format(
+    'INSERT INTO comments (user_id, kata_id, comment_body) VALUES %L RETURNING *;',
+    commentsData.map(({
+      user_id, 
+      kata_id, 
+      comment_body
+    }) => [user_id, kata_id, comment_body])  
+    );
+
+  const result = await db.query(commentsQuery);
+  return result;
+}
 
 module.exports = { seed };
