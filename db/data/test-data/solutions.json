@@ -1,17 +1,17 @@
 [
     {
-        "user_id":"1",
-        "kata_id":"2",
+        "user_id": 1,
+        "kata_id": 2,
         "solution":"function squareRoot(n) { return Math.sqrt(n); }"
     },
     {
-        "user_id":"2",
-        "kata_id":"1",
+        "user_id": 2,
+        "kata_id": 1,
         "solution":"This is a solution to the DNA Pair problem submitted by Void Cat."
     },
     {
-        "user_id":"1",
-        "kata_id":"3",
+        "user_id": 1,
+        "kata_id": 3,
         "solution":"This is a solution to the fill square problem submitted by Freezy Pop"
     }
 ]
