@@ -1,6 +1,6 @@
-const endpointsRouter = require("express").Router();
+import { Router } from "express";
+
+export const endpointsRouter = Router();
 //require in controllers
 
-endpointsRouter.route("/").get(/*controller */);
-
-module.exports = endpointsRouter;
+endpointsRouter.route("/").get(/*controller*/);
