@@ -1,6 +1,11 @@
 import { Router } from "express";
+const endpointsJSON: string = require("../endpoints");
 
 export const endpointsRouter = Router();
-//require in controllers
 
-endpointsRouter.route("/").get(/*controller*/);
+endpointsRouter.route("/").get((req, res, err) => {
+  let response : { endpoints: string; };
+  response = { endpoints: endpointsJSON };
+
+  res.status(200).send(response);
+});
