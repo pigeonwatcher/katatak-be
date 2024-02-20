@@ -11,21 +11,24 @@ beforeEach(() => seed(data));
 
 afterAll(() => db.end());
 
-describe.skip("/api/invalid-end-points", () => {
+describe("/api/invalid-end-points", () => {
   test("GET:404 responds with a 404 when passed an invalid path", async () => {
-    // const testObj = await request(app);
-    // const response = await testObj.get("/api/nonsensefkjashslgh");
-    // expect(response.body.msg).toBe("Endpoint not found!");
-    // expect(response.status).toBe(404);
+    const {
+      status,
+      body: { msg },
+    } = await request(app).get("/api/nonsensefkjashslgh");
+    expect(status).toBe(404);
+    expect(msg).toBe("Endpoint not found!");
   });
 });
 
 describe("/api", () => {
   test("GET: 200 should respond with an object describing all available endpoints", async () => {
-    const results = await request(app).get("/api").expect(200);
+    const { status, body } = await request(app).get("/api").expect(200);
     let response: { endpoints: string };
     response = { endpoints: endpointsJSON };
 
-    expect(results.body).toEqual(response);
+    expect(status).toBe(200);
+    expect(body).toEqual(response);
   });
 });
