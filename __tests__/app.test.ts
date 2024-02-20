@@ -3,13 +3,13 @@ const app = require("../app.ts");
 const request = require("supertest");
 const endpointsJSON: string = require("../endpoints");
 
-// const db = require("../db/connection");
-// const seed = require("../db/seeds/seed");
-// const data = require("../db/data/test-data/index");
+const { db } = require("../db/connection");
+const { seed } = require("../db/seeds/seed");
+const data = require("../db/data/test-data/index");
 
-// beforeEach(() => seed(data));
+beforeEach(() => seed(data));
 
-// afterAll(() => db.end());
+afterAll(() => db.end());
 
 describe.skip("/api/invalid-end-points", () => {
   test("GET:404 responds with a 404 when passed an invalid path", async () => {
