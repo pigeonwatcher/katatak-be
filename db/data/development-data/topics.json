@@ -10,5 +10,17 @@
     {
       "topic_name": "nested arrays",
       "description": "Arrays within arrays."
+    },
+    {
+      "topic_name": "objects",
+      "description": "Playing with objects and reference types."
+    },
+    {
+      "topic_name": "array methods",
+      "description": "Your path will be made all the easier using the built-in JS array methods."
+    },
+    {
+      "topic_name": "lookup objects",
+      "description": "You know objects can be used like an index, right?"
     }
   ]
