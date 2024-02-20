@@ -8,5 +8,20 @@
       "username": "void_cat",
       "bio": "I is a black cat that reminds you of the void. But in a cute way.",
       "avatar_img_url": "https://images.unsplash.com/photo-1604916287784-c324202b3205"
+    },
+    {
+      "username": "i_heart_recursion",
+      "bio": "Welcome to my recursive world.",
+      "avatar_img_url": "https://images.unsplash.com/photo-1635241161466-541f065683ba"
+    },
+    {
+      "username": "coder-in-the-north",
+      "bio": "There sits the only coder I mean to bend my knee to.",
+      "avatar_img_url": "https://images.unsplash.com/photo-1491466424936-e304919aada7"
+    },
+    {
+      "username": "netrunner12",
+      "bio": "The 12yo hacker that beat you in CoD.",
+      "avatar_img_url": "https://images.unsplash.com/photo-1616160232762-91cd5b3c6170"
     }
   ]
