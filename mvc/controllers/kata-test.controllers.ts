@@ -1,5 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-const { insertSolutionToTests } = require("../models/kata-test.models");
+const {
+  insertSolutionToTests,
+  insertSolutionToSolutions,
+} = require("../models/kata-test.models");
 const { fetchKataByID } = require("../models/katas.models");
 
 module.exports.postSolutionToTests = async (
@@ -7,7 +10,6 @@ module.exports.postSolutionToTests = async (
   res: Response,
   next: NextFunction
 ) => {
-  console.log(req.body, "<< req.body in controller");
   const solutionToTest: string = req.body.solution_body;
   const user_id: number = req.body.user_id;
   const { kata_id } = req.params;
@@ -19,9 +21,17 @@ module.exports.postSolutionToTests = async (
       kata_id,
       test_path
     );
-    console.log(results, "<< test_results in controller");
+    if (results.success) {
+      const postedSolutionObj: object = await insertSolutionToSolutions(
+        user_id,
+        solutionToTest,
+        kata_id
+      );
+      results.posted_solution = true;
+    }
     res.status(201).send({ results });
-  } catch (err) {
-    next(err);
+  } catch (err: any) {
+    const code: number = err.status;
+    res.status(code).send(err);
   }
 };

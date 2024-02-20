@@ -26,9 +26,9 @@ app.use(((err, req, res, next) => {
   next(err);
 }) as ErrorRequestHandler);
 
-// app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-//   console.log(err, "<< error handler err");
-//   res.status(500).send({ msg: "Internal Server Error" });
-// });
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  console.log(err, "<< error handler err");
+  res.status(500).send({ msg: "Internal Server Error" });
+});
 
 module.exports = app;
