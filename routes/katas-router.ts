@@ -1,8 +1,8 @@
 const katasRouter = require("express").Router();
-// require controller(s)
+import { getAllKatas, getKata } from "../mvc/controllers/katas.controllers";
 
-katasRouter.route("/").get(/*constoller */);
+katasRouter.route("/").get(getAllKatas);
 
-katasRouter.route("/:kata_id").get(/*constoller */);
+katasRouter.route("/:kata_id").get(getKata);
 
 module.exports = { katasRouter }
