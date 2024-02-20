@@ -2,8 +2,8 @@ import {test, afterAll, beforeEach, xdescribe } from "@jest/globals";
 const app = require("../app.ts");
 const request = require("supertest");
 
-const testData = require("../data/test-data/index");
-const { seed } = require("./seed");
+const testData = require('../db/data/test-data/index')
+const { seed } = require("../db/seeds/seed");
 beforeEach(() => seed(testData));
 afterAll(() => db.end());
 
