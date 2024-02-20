@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
-const apiRouter = require("./routes/api-router");
+//const { apiRouter } = require("./routes/api-router");
+import apiRouter from "../katatak-be/routes/api-router";
 
 /* needed later
 
