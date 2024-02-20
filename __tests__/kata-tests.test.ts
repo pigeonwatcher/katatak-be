@@ -1,4 +1,11 @@
-import {describe, xdescribe, expect, test, afterAll, beforeEach} from '@jest/globals';
+import {
+  describe,
+  xdescribe,
+  expect,
+  test,
+  afterAll,
+  beforeEach,
+} from "@jest/globals";
 const app = require("../app.ts");
 const request = require("supertest");
 
@@ -11,9 +18,43 @@ beforeEach(() => seed(data));
 afterAll(() => db.end());
 
 describe("/api/test/:kata_id", () => {
-  test("POST: 201 should return a results object with the test results on the key of test_results when the posted a user solution that passes no tests", () => {});
-  test("POST: 201 should return a results object with the test results on the key of test_results when the posted a user solution that passes some/all tests", () => {});
-  test("POST: 201 should return a results object with the console.logs on the key of logs", () => {});
+  test("POST: 201 should return a results object with the test results on the key of test_results when the posted a user solution that passes no tests", async () => {
+    const response = await request(app)
+      .post("/api/test/1")
+      .send({
+        kata_id: 1,
+        user_id: 1,
+        solution_body: "function(){return 'hello'}",
+      })
+      .expect(201);
+    expect(Object.keys(response.body.results).includes("test_results")).toBe(
+      true
+    );
+  });
+  test("POST: 201 should return a results object with the test results on the key of test_results when the posted a user solution that passes some tests", async () => {
+    const response = await request(app)
+      .post("/api/test/1")
+      .send({
+        kata_id: 1,
+        user_id: 1,
+        solution_body: "function(){return []}",
+      })
+      .expect(201);
+    expect(Object.keys(response.body.results).includes("test_results")).toBe(
+      true
+    );
+  });
+  test.only("POST: 201 should return a results object with the console.logs on the key of logs", async () => {
+    const response = await request(app)
+      .post("/api/test/1")
+      .send({
+        kata_id: 1,
+        user_id: 1,
+        solution_body: "function(){console.log('hiya')\n return[]}",
+      })
+      .expect(201);
+    expect(response.body.results.logs).toBe(true);
+  });
   test("POST: 201 should return a results object with a boolean Success key as true if all tests have passed, false if not", () => {});
   test("POST: 201 should return a results object, and if the Success key is true, post the users solution to the solutions table", () => {});
   test("POST: 400 responds with appropriate status code and error message if missing kata_id in request body", () => {});

@@ -1,6 +1,9 @@
 describe("dnaPairs()", () => {
-  const uniqueKey = `INPUT_TO_TEST${process.argv[3]}`;
-  const data = JSON.parse(process.env[uniqueKey]);
+  // const uniqueKey = `INPUT_TO_TEST${process.argv[3]}`;
+  // console.log(uniqueKey, "<< uniqueKey in dna test");
+  const data = process.argv[4];
+  // console.log(data, "<< data in dna test");
+  // console.log(process.env[uniqueKey], "<< process.env[uniqueKey] in test");
   const funcPart = data.slice(data.indexOf("{") + 1, data.length - 1).trim();
   const dnaPairs = new Function("dna", funcPart);
 
