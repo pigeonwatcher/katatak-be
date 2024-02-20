@@ -1,16 +1,16 @@
-import { describe, expect, test, beforeEach, afterAll } from "@jest/globals";
+import {describe, xdescribe, expect, test, afterAll, beforeEach} from '@jest/globals';
 const app = require("../app.ts");
 const request = require("supertest");
 
-// const db = require("../db/connection");
-// const seed = require("../db/seeds/seed");
+const { db } = require("../db/connection");
+const { seed } = require("../db/seeds/seed");
 const data = require("../db/data/test-data/index");
 
-// beforeEach(() => seed(data));
+beforeEach(() => seed(data));
 
-// afterAll(() => db.end());
+afterAll(() => db.end());
 
-describe.skip("/api/test/:kata_id", () => {
+describe("/api/test/:kata_id", () => {
   test("POST: 201 should return a results object with the test results on the key of test_results when the posted a user solution that passes no tests", () => {});
   test("POST: 201 should return a results object with the test results on the key of test_results when the posted a user solution that passes some/all tests", () => {});
   test("POST: 201 should return a results object with the console.logs on the key of logs", () => {});

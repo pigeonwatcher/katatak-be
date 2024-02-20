@@ -1,7 +1,6 @@
 const express = require("express");
 const app = express();
-
-const apiRouter = require("./routes/api-router");
+import apiRouter from "./routes/api-router";
 import { ErrorRequestHandler, Request, Response, NextFunction } from "express";
 
 /* needed later

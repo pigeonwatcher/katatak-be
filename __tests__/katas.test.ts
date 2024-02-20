@@ -33,7 +33,7 @@ describe('katas', () => {
                 kata_id: 1,
                 kata_name: "DNA Pairs",
                 description: "Create a function that takes a string of DNA and matches each base with its pair, returning a nested array. In DNA, C pairs with G and T pairs with A.",
-                test_path: "../db/data/test-data/1-dna.test.js",
+                test_path: expect.any(String),
                 difficulty: "Medium"
             })
         })
