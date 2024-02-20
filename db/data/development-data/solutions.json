@@ -18,5 +18,5 @@
         "user_id": 3,
         "kata_id": 4,
         "solution": "// Please do not change the name of this function \n function getTweetData (tweet) { \n // Your code here \n const tweetObj = { \n tags: [], \n mentions: [], \n tagCount: 0, \n mentionCount: 0, \n length: tweet.length\n } \n\nconst mentionRegex = /@[a-z]+/gi;\nconst hashtagRegex = /#[a-z]+/gi;\n//count mentions and populate mentions array\nif (mentionRegex.test(tweet)){\ntweetObj.mentions = tweet.match(mentionRegex);\n}\ntweetObj.mentions = tweetObj.mentions.filter((value, index) => tweetObj.mentions.indexOf(value) === index);\ntweetObj.mentionCount = tweetObj.mentions.length;\n//count hashtags and populate tag array \nif (hashtagRegex.test(tweet)){\ntweetObj.tags = tweet.match(hashtagRegex);\n}\ntweetObj.tags = tweetObj.tags.filter((value, index) => tweetObj.tags.indexOf(value) === index);\ntweetObj.tagCount = tweetObj.tags.length;\nreturn tweetObj;\n};\nmodule.exports = getTweetData;"
-    },
+    }
 ]
