@@ -1,6 +1,7 @@
 import { describe, expect, test, beforeEach, afterAll } from "@jest/globals";
 const app = require("../app.ts");
 const request = require("supertest");
+const endpointsJSON: string = require("../endpoints");
 
 // const db = require("../db/connection");
 // const seed = require("../db/seeds/seed");
@@ -19,7 +20,12 @@ describe.skip("/api/invalid-end-points", () => {
   });
 });
 
-describe.skip("/api", () => {
-  //const endpoints = require("../endpoints.json");
-  test("GET: 200 should respond with an object describing all available endpoints", () => {});
+describe("/api", () => {
+  test("GET: 200 should respond with an object describing all available endpoints", async () => {
+    const results = await request(app).get("/api").expect(200);
+    let response: { endpoints: string };
+    response = { endpoints: endpointsJSON };
+
+    expect(results.body).toEqual(response);
+  });
 });
