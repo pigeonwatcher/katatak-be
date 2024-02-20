@@ -28,5 +28,30 @@
       "comment_body": "Sometimes I surpass even my own genius.",
       "user_id": 1,
       "kata_id": 3
+    },
+    {
+      "comment_body": "Was this written by a total NOOOOB?!?!",
+      "user_id": 5,
+      "kata_id": 10
+    },
+    {
+      "comment_body": "Sure was.",
+      "user_id": 4,
+      "kata_id": 10
+    },
+    {
+      "comment_body": "How long did this take you to solve until you realised you needed a lookup object?",
+      "user_id": 3,
+      "kata_id": 7
+    },
+    {
+      "comment_body": "About three minutes.",
+      "user_id": 1,
+      "kata_id": 7
+    },
+    {
+      "comment_body": "About three hours.",
+      "user_id": 2,
+      "kata_id": 7
     }
   ]
