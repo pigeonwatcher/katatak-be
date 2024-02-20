@@ -1,10 +1,10 @@
 const usersRouter = require("express").Router();
-//require in controllers
+import { getUsers } from "../mvc/controllers/users.controllers";
 
-usersRouter.route("/").get(/*controller*/);
+usersRouter.route("/").get(getUsers);
 
 usersRouter.route("/:user_id").get(/*controller*/);
 
 module.exports = {
-    usersRouter
-}
+  usersRouter,
+};

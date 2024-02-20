@@ -8,8 +8,20 @@ const { db } = require("../db/connection");
 beforeEach(() => seed(testData));
 afterAll(() => db.end());
 
-describe.skip("GET /api/users", () => {
-  test("200: returns an array of user objects", () => {});
+describe("GET /api/users", () => {
+  test("200: returns an array of user objects", async () => {
+    const {
+      status,
+      body: { users },
+    } = await request(app).get("/api/users");
+    expect(status).toBe(200);
+    expect(users.length).toBe(2);
+    users.forEach((user: any) => {
+      expect(typeof user.username).toBe("string");
+      expect(typeof user.bio).toBe("string");
+      expect(typeof user.avatar_img_url).toBe("string");
+    });
+  });
 });
 
 describe.skip("GET /api/users/:user_id", () => {
