@@ -8,6 +8,13 @@ const request = require("supertest");
 beforeEach(() => seed(testData));
 afterAll(() => db.end());
 
+interface KataData {
+    kata_name: string,
+    description: string,
+    test_path: string,
+    difficulty: string
+} 
+
 describe('katas', () => {
     describe('api/katas', () => {
         test('GET: 200 Returns an array of all kata objects', async () => {
@@ -16,7 +23,7 @@ describe('katas', () => {
             expect(status).toBe(200);
             expect(Array.isArray(katas)).toBe(true);
             expect(katas.length).not.toBe(0);
-            katas.forEach((kata: any) => {
+            katas.forEach((kata: KataData) => {
                 expect(typeof kata.kata_name).toBe('string');
                 expect(typeof kata.description).toBe('string');
                 expect(typeof kata.test_path).toBe('string');
