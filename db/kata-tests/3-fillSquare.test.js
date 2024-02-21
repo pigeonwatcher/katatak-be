@@ -1,8 +1,8 @@
 describe("fillSquare()", () => {
-  const uniqueKey = `INPUT_TO_TEST${process.argv[3]}`;
-  const data = JSON.parse(process.env[uniqueKey]);
+  const data = process.argv[4];
+  console.log("delete from here"); // DO NOT DELETE - we use this log to mark where to slice the stdout in order to capture the user's console logs
   const funcPart = data.slice(data.indexOf("{") + 1, data.length - 1).trim();
-  const fillSquare = new Function("dna", funcPart);
+  const fillSquare = new Function("array", funcPart);
 
   test("should return an array of nested arrays with null added to fill any sub arrays, when passed an array with the same number of nested arrays as the length of the first array", () => {
     const square = [[1, 2, 3], [1, 2], [1]];

@@ -31,6 +31,7 @@ module.exports.postSolutionToTests = async (
     }
     res.status(201).send({ results });
   } catch (err: any) {
+    console.log(err, "<< err in catch controller");
     const code: number = err.status;
     res.status(code).send(err);
   }
