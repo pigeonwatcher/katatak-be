@@ -2,25 +2,115 @@
   "GET /api": {
     "description": "Serves up a JSON representation of all the available endpoints of the API",
     "queries": [],
+    "requestFormat": {},
     "exampleResponse": [
       {
         "GET /api": {
           "description": "Serves up a JSON representation of all the available endpoints of the API",
           "queries": [],
+          "requestFormat": {},
           "exampleResponse": {}
         }
       }
     ]
   },
+  "GET /api/topics": {
+    "description": "Serves up an array of topic objects with topic_name and description",
+    "queries": [],
+    "requestFormat": {},
+    "exampleResponse": [
+      {
+        "topic_id": 1,
+        "topic_name": "string manipulation",
+        "description": "Messing about with strings. Messy, messy strings."
+      },
+      {
+        "topic_id": 2,
+        "topic_name": "nested arrays",
+        "description": "Arrays within arrays."
+      }
+    ]
+  },
+  "GET /api/katas": {
+    "description": "Serves up an array of kata objects (data about the individual katas including name, description and difficulty)",
+    "queries": [],
+    "requestFormat": {},
+    "exampleResponse": [
+      {
+        "kata_id": 2,
+        "kata_name": "Square Root",
+        "description": "Write a function that takes a number (n) and returns the square root of that number.",
+        "test_path": "../db/data/kata-tests/2-squareRoot.test.js",
+        "difficulty": "Easy",
+        "date_created": "2024-02-21T14:40:14.091Z",
+        "votes": 0,
+        "function_template": "function(dna){//your code here}"
+      },
+      {
+        "kata_id": 3,
+        "kata_name": "Fill Square",
+        "description": "The function `fillSquare` should take an array of arrays and should complete these arrays so that they are a square matrix with the value `null` standing in for any blank positions. If extra sub-arrays are needed to complete the square, these should be added at the bottom of the matrix.",
+        "test_path": "../db/data/kata-tests/3-fillSquare.test.js",
+        "difficulty": "Hard",
+        "date_created": "2024-02-21T14:40:14.091Z",
+        "votes": 0,
+        "function_template": "function(dna){//your code here}"
+      }
+    ]
+  },
+  "GET /api/katas/:kata_id": {
+    "description": "kata object for the requested kata id",
+    "queries": [],
+    "requestFormat": {},
+    "exampleResponse": {
+      "kata_id": 1,
+      "kata_name": "DNA Pairs",
+      "description": "Create a function that takes a string of DNA and matches each base with its pair, returning a nested array. In DNA, C pairs with G and T pairs with A.",
+      "test_path": "../db/data/kata-tests/1-dna.test.js",
+      "difficulty": "Medium",
+      "date_created": "2024-02-21T14:40:14.091Z",
+      "votes": 0,
+      "function_template": "function(dna){//your code here}"
+    }
+  },
   "GET /api/users": {
     "description": "Serves up an array of user objects",
     "queries": [],
+    "requestFormat": {},
     "exampleResponse": [
       {
+        "user_id": 1,
         "username": "freezypop",
         "bio": "I like to sit in the fridge making sick burns about the maternal figure in your life.",
         "avatar_img_url": "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f"
       }
     ]
+  },
+  "GET /api/users/:user_id": {
+    "description": "user object for the requested user",
+    "queries": [],
+    "requestFormat": {},
+    "exampleResponse": {
+      "user_id": 1,
+      "username": "freezypop",
+      "bio": "I like to sit in the fridge making sick burns about the maternal figure in your life.",
+      "avatar_img_url": "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f"
+    }
+  },
+  "POST /api/test/:kata_id": {
+    "description": "Sends user solution to be tested on the server. Returns a results object logs, test results, and a boolean success key indicating if all tests have passed (true) or not (false). If success is true, this endpoint also posts the user’s input to the solutions table.",
+    "queries": [],
+    "requestFormat": {
+      "user_id": 1,
+      "solution_body": "function dnaPairs(dna){const chars = dna.split('')\nconst arr = []\nconst lookup = {'G': ['G','C'],'C': ['C','G'],'A': ['A','T'],'T': ['T','A']}\nfor (char of chars){arr.push(lookup[char])}\nreturn arr;}"
+    },
+    "exampleResponse": {
+      "success": false,
+      "stderr": "stderr is a large string of the standard err output from exec running the users solution through a test",
+      "stdout": "stdout is a large string of the standard output from exec running the users solution through a test",
+      "test_results": "dnaPairs()\n' +'    ✓ returns an array (3 ms)\n' +'    ✓ returns an empty array when passed an empty string (1 ms)\n' +'    ✓ returns array with a nested array of correct pair when passed one character (1 ms)\n' +'    ✓ returns array of nested arrays when passed any number of chars (2 ms)\n' +'\n",
+      "logs": ["hello"],
+      "posted_solution": false
+    }
   }
 }
