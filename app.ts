@@ -6,8 +6,8 @@ import { ErrorRequestHandler, Request, Response, NextFunction } from "express";
 /* needed later
 
 app.use(cors())
-app.use(express.json())
 */
+app.use(express.json());
 
 app.use("/api", apiRouter);
 

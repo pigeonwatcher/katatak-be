@@ -114,7 +114,7 @@ function createKatas() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, db.query("CREATE TABLE katas\n        (kata_id SERIAL PRIMARY KEY,\n            kata_name VARCHAR NOT NULL,\n            description TEXT NOT NULL,\n            test_path VARCHAR NOT NULL,\n            difficulty VARCHAR NOT NULL,\n            date_created TIMESTAMP DEFAULT NOW(),\n            votes INT DEFAULT 0 NOT NULL)")];
+                case 0: return [4 /*yield*/, db.query("CREATE TABLE katas\n        (kata_id SERIAL PRIMARY KEY,\n            kata_name VARCHAR NOT NULL,\n            description TEXT NOT NULL,\n            test_path VARCHAR NOT NULL,\n            difficulty VARCHAR NOT NULL,\n            date_created TIMESTAMP DEFAULT NOW(),\n            votes INT DEFAULT 0 NOT NULL,\n            function_template VARCHAR NOT NULL\n            )")];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -166,7 +166,7 @@ function insertUsers(usersData) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    usersQuery = format('INSERT INTO users (username, bio, avatar_img_url) VALUES %L RETURNING *;', usersData.map(function (_a) {
+                    usersQuery = format("INSERT INTO users (username, bio, avatar_img_url) VALUES %L RETURNING *;", usersData.map(function (_a) {
                         var username = _a.username, bio = _a.bio, avatar_img_url = _a.avatar_img_url;
                         return [username, bio, avatar_img_url];
                     }));
@@ -184,9 +184,9 @@ function insertKatas(katasData) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    katasQuery = format('INSERT INTO katas (kata_name, description, test_path, difficulty) VALUES %L RETURNING *;', katasData.map(function (_a) {
-                        var kata_name = _a.kata_name, description = _a.description, test_path = _a.test_path, difficulty = _a.difficulty;
-                        return [kata_name, description, test_path, difficulty];
+                    katasQuery = format("INSERT INTO katas (kata_name, description, test_path, difficulty, function_template) VALUES %L RETURNING *;", katasData.map(function (_a) {
+                        var kata_name = _a.kata_name, description = _a.description, test_path = _a.test_path, difficulty = _a.difficulty, function_template = _a.function_template;
+                        return [kata_name, description, test_path, difficulty, function_template];
                     }));
                     return [4 /*yield*/, db.query(katasQuery)];
                 case 1:
@@ -202,7 +202,7 @@ function insertTopics(topicsData) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    topicsQuery = format('INSERT INTO topics (topic_name, description) VALUES %L RETURNING *;', topicsData.map(function (_a) {
+                    topicsQuery = format("INSERT INTO topics (topic_name, description) VALUES %L RETURNING *;", topicsData.map(function (_a) {
                         var topic_name = _a.topic_name, description = _a.description;
                         return [topic_name, description];
                     }));
@@ -220,7 +220,7 @@ function insertSolutions(solutionsData) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    solutionsQuery = format('INSERT INTO solutions (kata_id, user_id, solution) VALUES %L RETURNING *;', solutionsData.map(function (_a) {
+                    solutionsQuery = format("INSERT INTO solutions (kata_id, user_id, solution) VALUES %L RETURNING *;", solutionsData.map(function (_a) {
                         var kata_id = _a.kata_id, user_id = _a.user_id, solution = _a.solution;
                         return [kata_id, user_id, solution];
                     }));
@@ -238,9 +238,12 @@ function insertKataTopics(kataTopicsData) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    kataTopicsQuery = format('INSERT INTO kata_topics (kata_id, topic_id) VALUES %L RETURNING *;', kataTopicsData.map(function (_a) {
+                    kataTopicsQuery = format("INSERT INTO kata_topics (kata_id, topic_id) VALUES %L RETURNING *;", kataTopicsData.map(function (_a) {
                         var kata_id = _a.kata_id, topic_id = _a.topic_id;
-                        return [kata_id, topic_id];
+                        return [
+                            kata_id,
+                            topic_id,
+                        ];
                     }));
                     return [4 /*yield*/, db.query(kataTopicsQuery)];
                 case 1:
@@ -256,7 +259,7 @@ function insertComments(commentsData) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    commentsQuery = format('INSERT INTO comments (user_id, kata_id, comment_body) VALUES %L RETURNING *;', commentsData.map(function (_a) {
+                    commentsQuery = format("INSERT INTO comments (user_id, kata_id, comment_body) VALUES %L RETURNING *;", commentsData.map(function (_a) {
                         var user_id = _a.user_id, kata_id = _a.kata_id, comment_body = _a.comment_body;
                         return [user_id, kata_id, comment_body];
                     }));
