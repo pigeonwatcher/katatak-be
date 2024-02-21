@@ -17,6 +17,7 @@ describe("GET /api/users", () => {
     expect(status).toBe(200);
     expect(users.length).toBe(2);
     users.forEach((user: any) => {
+      expect(typeof user.user_id).toBe("number")
       expect(typeof user.username).toBe("string");
       expect(typeof user.bio).toBe("string");
       expect(typeof user.avatar_img_url).toBe("string");
@@ -33,6 +34,7 @@ describe("GET /api/users/:user_id", () => {
     expect(status).toBe(200);
     expect(user.user_id).toBe(1);
     expect(user).toMatchObject({
+      user_id: 1,
       username: "freezypop",
       bio: "I like to sit in the fridge making sick burns about the maternal figure in your life.",
       avatar_img_url:
