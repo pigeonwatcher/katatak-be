@@ -172,16 +172,4 @@ describe("/api/test/:kata_id", () => {
       "404 Not Found: Couldn't find a user with that ID."
     );
   });
-  test.skip("POST: 408 responds with appropriate status code and error message if request times out (infinite loop)", async () => {
-    const response = await request(app)
-      .post("/api/test/1")
-      .send({
-        user_id: 1,
-        solution_body: "function(){while (0 < 1){}}",
-      })
-      .expect(408);
-    expect(response.body.msg).toBe(
-      "408: Request timeout - check for an infinite loop.."
-    );
-  });
 });

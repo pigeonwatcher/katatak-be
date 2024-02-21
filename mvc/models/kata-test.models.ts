@@ -25,20 +25,10 @@ module.exports.insertSolutionToTests = async (
   return new Promise((resolve, reject) => {
     const timer: any = setTimeout(() => {
       clearTimeout(timer);
-      // kill(childProcessObj.pid);
       reject({
         status: 408,
         msg: "408: Request timeout - check for an infinite loop..",
       });
-      // console.log(childProcessObj.pid, "<< childProcess pid");
-      //exec(`kill -9 ${childProcessObj.pid}`);
-
-      // exec(`kill -9 ${childProcessObj.pid}`, (error, stdout, stderr) => {
-      //   reject({
-      //     status: 408,
-      //     msg: "408: Request timeout - check for an infinite loop..",
-      //   });
-      // });
     }, 9000);
 
     exec(
