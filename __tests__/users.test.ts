@@ -45,14 +45,14 @@ describe("GET /api/users/:user_id", () => {
       body: { msg },
     } = await request(app).get("/api/users/:banana");
     expect(status).toBe(400);
-    expect(msg).toBe("Invalid id, must be an integer!");
+    expect(msg).toBe("Bad Request");
   });
   test("404: Not Found for none-existent user", async () => {
     const {
       status,
       body: { msg },
     } = await request(app).get("/api/users/5000");
-    expect(status).toBe(400);
+    expect(status).toBe(404);
     expect(msg).toBe("User does not exist!");
   });
 });

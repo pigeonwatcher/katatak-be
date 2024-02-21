@@ -11,7 +11,7 @@ export async function fetchUserById(user_id: string) {
   ]);
 
   if (user.rows.length === 0) {
-    return Promise.reject({ status: 400, msg: "User does not exist!" });
+    return Promise.reject({ status: 404, msg: "User does not exist!" });
   }
   return user;
 }
