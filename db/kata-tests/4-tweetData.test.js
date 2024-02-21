@@ -3,6 +3,7 @@ describe("getTweetData", () => {
   console.log("delete from here"); // DO NOT DELETE - we use this log to mark where to slice the stdout in order to capture the user's console logs
   const funcPart = data.slice(data.indexOf("{") + 1, data.length - 1).trim();
   const getTweetData = new Function("tweet", funcPart);
+
   test("returns an object", () => {
     expect(typeof getTweetData("a tweet")).toBe("object");
   });

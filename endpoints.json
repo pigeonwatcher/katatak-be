@@ -96,5 +96,21 @@
       "bio": "I like to sit in the fridge making sick burns about the maternal figure in your life.",
       "avatar_img_url": "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f"
     }
+  },
+  "POST /api/test/:kata_id": {
+    "description": "Sends user solution to be tested on the server. Returns a results object logs, test results, and a boolean success key indicating if all tests have passed (true) or not (false). If success is true, this endpoint also posts the user’s input to the solutions table.",
+    "queries": [],
+    "requestFormat": {
+      "user_id": 1,
+      "solution_body": "function dnaPairs(dna){const chars = dna.split('')\nconst arr = []\nconst lookup = {'G': ['G','C'],'C': ['C','G'],'A': ['A','T'],'T': ['T','A']}\nfor (char of chars){arr.push(lookup[char])}\nreturn arr;}"
+    },
+    "exampleResponse": {
+      "success": false,
+      "stderr": "stderr is a large string of the standard err output from exec running the users solution through a test",
+      "stdout": "stdout is a large string of the standard output from exec running the users solution through a test",
+      "test_results": "dnaPairs()\n' +'    ✓ returns an array (3 ms)\n' +'    ✓ returns an empty array when passed an empty string (1 ms)\n' +'    ✓ returns array with a nested array of correct pair when passed one character (1 ms)\n' +'    ✓ returns array of nested arrays when passed any number of chars (2 ms)\n' +'\n",
+      "logs": ["hello"],
+      "posted_solution": false
+    }
   }
 }
