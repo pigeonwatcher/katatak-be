@@ -8,6 +8,13 @@ const { db } = require("../db/connection");
 beforeEach(() => seed(testData));
 afterAll(() => db.end());
 
+interface UserData {
+  user_id: number;
+  username: string;
+  bio: string;
+  avatar_img_url: string;
+}
+
 describe("GET /api/users", () => {
   test("200: returns an array of user objects", async () => {
     const {
@@ -16,8 +23,11 @@ describe("GET /api/users", () => {
     } = await request(app).get("/api/users");
     expect(status).toBe(200);
     expect(users.length).toBe(2);
-    users.forEach((user: any) => {
+
+    users.forEach((user: UserData) => {
+
       expect(typeof user.user_id).toBe("number")
+
       expect(typeof user.username).toBe("string");
       expect(typeof user.bio).toBe("string");
       expect(typeof user.avatar_img_url).toBe("string");
