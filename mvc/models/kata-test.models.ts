@@ -23,27 +23,27 @@ module.exports.insertSolutionToTests = async (
   }
 
   return new Promise((resolve, reject) => {
-    // const timer: any = setTimeout(() => {
-    //   clearTimeout(timer);
-    //   // kill(childProcessObj.pid);
-    //   reject({
-    //     status: 408,
-    //     msg: "408: Request timeout - check for an infinite loop..",
-    //   });
-    //   // console.log(childProcessObj.pid, "<< childProcess pid");
-    //   //exec(`kill -9 ${childProcessObj.pid}`);
+    const timer: any = setTimeout(() => {
+      clearTimeout(timer);
+      // kill(childProcessObj.pid);
+      reject({
+        status: 408,
+        msg: "408: Request timeout - check for an infinite loop..",
+      });
+      // console.log(childProcessObj.pid, "<< childProcess pid");
+      //exec(`kill -9 ${childProcessObj.pid}`);
 
-    //   // exec(`kill -9 ${childProcessObj.pid}`, (error, stdout, stderr) => {
-    //   //   reject({
-    //   //     status: 408,
-    //   //     msg: "408: Request timeout - check for an infinite loop..",
-    //   //   });
-    //   // });
-    // }, 9000);
+      // exec(`kill -9 ${childProcessObj.pid}`, (error, stdout, stderr) => {
+      //   reject({
+      //     status: 408,
+      //     msg: "408: Request timeout - check for an infinite loop..",
+      //   });
+      // });
+    }, 9000);
 
     exec(
       `npm run test ${test_path} ${kata_id} "${solutionToTest}"`,
-
+      { timeout: 6000 },
       (error, stdout: string, stderr: string) => {
         const consoleArr: string[] = stdout.split("\n");
         const allLogs: string[] = [];
@@ -74,7 +74,7 @@ module.exports.insertSolutionToTests = async (
             stderr.indexOf(" ●")
           );
           const success: boolean = false;
-          //clearTimeout(timer);
+          clearTimeout(timer);
           resolve({
             success: false,
             stderr: stderr,
@@ -84,7 +84,7 @@ module.exports.insertSolutionToTests = async (
             posted_solution: false,
           });
         } else {
-          //clearTimeout(timer);
+          clearTimeout(timer);
           const test_list: string = stderr.slice(
             stderr.indexOf(".js") + 5,
             stderr.indexOf("Test Suites")
