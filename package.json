@@ -2,12 +2,12 @@
   "name": "katatak-be",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "listen.js",
   "scripts": {
     "setup-dbs": "psql -f ./db/setup.sql",
-    "seed": "PGDATABASE=katatak_test node ./db/seeds/run-seed.js",
-    "listen": "PGDATABASE=katatak_test node ./ts-built/listen.js",
-    "test": "PGDATABASE=katatak_test jest",
+    "seed": "node ./db/seeds/run-seed.js",
+    "listen": "node ./ts-built/listen.js",
+    "test": "jest",
     "start": "node listen.js",
     "seed-prod": "NODE_ENV=production npm run seed"
   },
@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@types/express": "^4.17.21",
+    "dotenv": "^16.4.5",
     "express": "^4.18.2",
     "pg": "^8.11.3"
   }
