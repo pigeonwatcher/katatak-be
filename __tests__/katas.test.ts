@@ -45,13 +45,13 @@ describe('katas', () => {
             })
         })
         test('GET: 400 Returns an error if given an invalid kata id', async () => {
-            const { status } = await request(app).get('/api/katas/abc');
-
+            const { status, body:{msg} } = await request(app).get('/api/katas/abc');
+            expect(msg).toBe("Bad Request")
             expect(status).toBe(400);
         })
         test('GET: 404 Returns an error if given a non-existent kata id', async () => {
-            const { status } = await request(app).get('/api/katas/9999');
-
+        const { status, body:{msg} } = await request(app).get('/api/katas/9999');
+            expect(msg).toBe("Not Found")
             expect(status).toBe(404);
         })
     })

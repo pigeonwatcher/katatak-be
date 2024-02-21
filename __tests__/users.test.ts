@@ -17,6 +17,7 @@ describe("GET /api/users", () => {
     expect(status).toBe(200);
     expect(users.length).toBe(2);
     users.forEach((user: any) => {
+      expect(typeof user.user_id).toBe("number")
       expect(typeof user.username).toBe("string");
       expect(typeof user.bio).toBe("string");
       expect(typeof user.avatar_img_url).toBe("string");
@@ -33,6 +34,7 @@ describe("GET /api/users/:user_id", () => {
     expect(status).toBe(200);
     expect(user.user_id).toBe(1);
     expect(user).toMatchObject({
+      user_id: 1,
       username: "freezypop",
       bio: "I like to sit in the fridge making sick burns about the maternal figure in your life.",
       avatar_img_url:
@@ -45,14 +47,14 @@ describe("GET /api/users/:user_id", () => {
       body: { msg },
     } = await request(app).get("/api/users/:banana");
     expect(status).toBe(400);
-    expect(msg).toBe("Invalid id, must be an integer!");
+    expect(msg).toBe("Bad Request");
   });
   test("404: Not Found for none-existent user", async () => {
     const {
       status,
       body: { msg },
     } = await request(app).get("/api/users/5000");
-    expect(status).toBe(400);
+    expect(status).toBe(404);
     expect(msg).toBe("User does not exist!");
   });
 });

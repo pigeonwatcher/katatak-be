@@ -9,39 +9,59 @@ app.use(cors())
 */
 app.use(express.json());
 
+interface ErrorMessage {
+  msg: string
+}
+
 app.use("/api", apiRouter);
 
 app.all("*", (req: Request, res: Response) => {
-  res.status(404).send({ msg: "Endpoint not found!" });
+  const errorMsg: ErrorMessage = {
+    msg: "Endpoint not found!"
+  }
+  res.status(404).send(errorMsg);
 });
 
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {};
 app.use(((err, req, res, next) => {
   if (err.code === "22P02") {
-    if (err.line === "320") {
-      res.status(400).send({ msg: "Invalid id, must be an integer!" });
+    const errorMsg: ErrorMessage = {
+      msg: "Bad Request"
     }
-    res.status(400).send({ msg: "Bad Request" });
+    res.status(400).send(errorMsg);
   }
   next(err);
 }) as ErrorRequestHandler);
 
 app.use(((err, req, res, next) => {
-  if (err.status == 404) {
-    res.status(404).send({ msg: "Not Found" });
+  const errorMsg: ErrorMessage = {
+    msg: ""
+  }
+  if (err.status == 404 && err.msg === "User does not exist!") {
+    errorMsg.msg = err.msg;
+    res.status(404).send(errorMsg);
+  } else {
+    errorMsg.msg = "Not Found"
+    res.status(404).send(errorMsg);
   }
   next(err);
 }) as ErrorRequestHandler);
 
 app.use(((err, req, res, next) => {
+  const errorMsg: ErrorMessage = {
+    msg: "Bad Request"
+  }
   if (err.status === 400) {
-    res.status(400).send({ msg: err.msg });
+    res.status(400).send(errorMsg);
   }
 }) as ErrorRequestHandler);
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+app.use(((err, req, res) => {
   console.log(err);
-  res.status(500).send({ msg: "Internal Server Error" });
-});
+  const errorMsg: ErrorMessage = {
+    msg: "Internal Server Error"
+  }
+  res.status(500).send(errorMsg);
+}) as ErrorRequestHandler);
 
 module.exports = app;
