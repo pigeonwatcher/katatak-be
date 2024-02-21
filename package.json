@@ -5,9 +5,9 @@
   "main": "listen.js",
   "scripts": {
     "setup-dbs": "psql -f ./db/setup.sql",
-    "seed": "PGDATABASE=katatak_test node ./db/seeds/run-seed.js",
-    "listen": "PGDATABASE=katatak_test node ./ts-built/listen.js",
-    "test": "PGDATABASE=katatak_test jest",
+    "seed": "node ./db/seeds/run-seed.js",
+    "listen": "node ./ts-built/listen.js",
+    "test": "jest",
     "start": "node listen.js",
     "seed-prod": "NODE_ENV=production npm run seed"
   },
