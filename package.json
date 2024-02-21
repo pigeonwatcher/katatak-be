@@ -6,6 +6,7 @@
   "scripts": {
     "setup-dbs": "psql -f ./db/setup.sql",
     "seed": "PGDATABASE=katatak_test node ./db/seeds/run-seed.js",
+    "listen": "PGDATABASE=katatak_test node ./ts-built/listen.js",
     "test": "PGDATABASE=katatak_test jest",
     "start": "node listen.js",
     "seed-prod": "NODE_ENV=production npm run seed"
@@ -20,7 +21,6 @@
     "@jest/globals": "^29.7.0",
     "@types/express": "^4.17.21",
     "@types/node": "^20.11.19",
-    "@types/express": "^4.17.21",
     "babel-jest": "^29.7.0",
     "jest": "^29.7.0",
     "pg-format": "^1.0.4",
@@ -30,6 +30,7 @@
   "dependencies": {
     "@types/express": "^4.17.21",
     "express": "^4.18.2",
-    "pg": "^8.11.3"
+    "pg": "^8.11.3",
+    "tree-kill": "^1.2.2"
   }
 }
