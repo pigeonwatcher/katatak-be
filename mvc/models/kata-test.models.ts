@@ -1,7 +1,6 @@
 import { exec } from "child_process";
 const format = require("pg-format");
 const { db } = require("../../db/connection");
-const kill = require("tree-kill");
 
 module.exports.insertSolutionToTests = async (
   user_id: number,

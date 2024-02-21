@@ -22,5 +22,18 @@
         "avatar_img_url": "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f"
       }
     ]
+  },
+  "GET /api/katas": {
+    "description": "Serves up an array of katas",
+    "queries": [],
+    "exampleResponse": [
+      {
+        "kata_name": "DNA Pairs",
+        "description": "Create a function that takes a string of DNA and matches each base with its pair, returning a nested array. In DNA, C pairs with G and T pairs with A.",
+        "test_path": "../db/data/kata-tests/1-dna.test.js",
+        "difficulty": "Medium",
+        "function_template": "function(dna){//your code here}"
+      }
+    ]
   }
 }
