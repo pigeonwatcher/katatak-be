@@ -1,0 +1,50 @@
+[
+    {
+      "kata_id": 1,
+      "topic_id": 2
+    },
+    {
+      "kata_id": 2,
+      "topic_id": 1
+    },
+    {
+      "kata_id": 3,
+      "topic_id": 3
+    },
+    {
+      "kata_id": 1,
+      "topic_id": 3
+    },
+    {
+      "kata_id": 4,
+      "topic_id": 4
+    },
+    {
+      "kata_id": 5,
+      "topic_id": 5
+    },
+    {
+      "kata_id": 6,
+      "topic_id": 4
+    },
+    {
+      "kata_id": 7,
+      "topic_id": 6
+    },
+    {
+      "kata_id": 8,
+      "topic_id": 2
+    },
+    {
+      "kata_id": 9,
+      "topic_id": 2
+    },
+    {
+      "kata_id": 10,
+      "topic_id": 2
+    },
+    {
+      "kata_id": 11,
+      "topic_id": 5
+    }
+  ]

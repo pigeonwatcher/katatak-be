@@ -1,0 +1,57 @@
+[
+    {
+      "comment_body": "This kata was so easy.",
+      "user_id": 1,
+      "kata_id": 1
+    },
+    {
+      "comment_body": "Why is js so hard?",
+      "user_id": 2,
+      "kata_id": 1
+    },
+    {
+      "comment_body": "Argh this took me forever.",
+      "user_id": 2,
+      "kata_id": 2
+    },
+    {
+      "comment_body": "Are you amazed at my brilliance?",
+      "user_id": 1,
+      "kata_id": 2
+    },
+    {
+      "comment_body": "Well its kind of spaghetti code but it will do.",
+      "user_id": 2,
+      "kata_id": 3
+    },
+    {
+      "comment_body": "Sometimes I surpass even my own genius.",
+      "user_id": 1,
+      "kata_id": 3
+    },
+    {
+      "comment_body": "Was this written by a total NOOOOB?!?!",
+      "user_id": 5,
+      "kata_id": 10
+    },
+    {
+      "comment_body": "Sure was.",
+      "user_id": 4,
+      "kata_id": 10
+    },
+    {
+      "comment_body": "How long did this take you to solve until you realised you needed a lookup object?",
+      "user_id": 3,
+      "kata_id": 7
+    },
+    {
+      "comment_body": "About three minutes.",
+      "user_id": 1,
+      "kata_id": 7
+    },
+    {
+      "comment_body": "About three hours.",
+      "user_id": 2,
+      "kata_id": 7
+    }
+  ]

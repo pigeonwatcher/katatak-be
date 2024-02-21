@@ -1,6 +1,6 @@
 const topicsRouter = require("express").Router();
-//require in controllers
+import { getAllTopics } from "../mvc/controllers/topics.controllers";
 
-topicsRouter.route("/").get(/*controller*/)
+topicsRouter.route("/").get(getAllTopics)
 
 module.exports = { topicsRouter }
