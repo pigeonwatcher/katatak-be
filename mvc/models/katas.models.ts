@@ -2,19 +2,29 @@ const fs = require("fs/promises");
 const format = require("pg-format");
 const { db } = require("../../db/connection");
 
-export async function fetchAllKatas(topic: string) {
+export async function fetchAllKatas(topic: string, order_by: string) {
+  const validOrderBys: string[] = ["hardest", "easiest"];
+  if (order_by && !validOrderBys.includes(order_by))
+    return Promise.reject({ status: 400, msg: "invalid order_by" });
+
   let queryStr: string = `SELECT katas.*, json_agg(topics.topic_name) AS topics FROM katas JOIN kata_topics ON katas.kata_id = kata_topics.kata_id JOIN topics ON kata_topics.topic_id = topics.topic_id`;
   const queries: string[] = [];
   if (topic) {
     queries.push(topic);
     queryStr += ` WHERE topic_name = $1`;
   }
-  queryStr += ` GROUP BY katas.kata_id ORDER BY date_created`;
-  // ` ORDER BY CASE difficulty WHEN 'Easy' THEN 1 WHEN 'Medium' THEN 2 WHEN 'Hard' THEN 3 END`;
 
-  //   console.log(queryStr, "<< queryStr in model");
+  let order: string = "ASC";
+  if (order_by === "hardest") {
+    order = "DESC";
+  }
+
+  const orderStr: string = ` ORDER BY CASE difficulty WHEN 'Easy' THEN 1 WHEN 'Medium' THEN 2 WHEN 'Hard' THEN 3 END ${order} `;
+
+  queryStr += ` GROUP BY katas.kata_id ${orderStr}`;
+
   const { rows } = await db.query(queryStr, queries);
-  //console.log(rows, "<< rows in model");
+
   return rows;
 }
 
