@@ -24,7 +24,6 @@
     "@types/express": "^4.17.21",
     "@types/node": "^20.11.19",
     "babel-jest": "^29.7.0",
-    "jest-sorted": "^1.0.15",
     "supertest": "^6.3.4",
     "ts-jest": "^29.1.2"
   },
