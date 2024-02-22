@@ -11,7 +11,15 @@ if (!process.env.PGDATABASE && !process.env.DATABASE_URL) {
   throw new Error("PGDATABASE or DATABASE_URL not set");
 }
 
-const config = {};
+type Config = {
+  connectionString: string | undefined,
+  max: number
+}
+
+const config: Config = {
+  connectionString: "",
+  max: 0
+};
 
 if (ENV === "production") {
   config.connectionString = process.env.DATABASE_URL;
@@ -20,4 +28,4 @@ if (ENV === "production") {
 
 const db = new Pool(config);
 
-module.exports = { db };
+export = { db };
