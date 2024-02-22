@@ -51,7 +51,7 @@ describe("/api/test/:kata_id", () => {
         kata_id: 1,
         user_id: 1,
         solution_body:
-          "function(){console.log('hiya')\nconsole.log('another')\nreturn[]}",
+          "function(){console.log('hiya');console.log('another');return[]}",
       })
       .expect(201);
     expect(response.body.results.logs.includes("hiya")).toBe(true);

@@ -1,7 +1,5 @@
 import { exec } from "child_process";
-const format = require("pg-format");
 const { db } = require("../../db/connection");
-const kill = require("tree-kill");
 
 module.exports.insertSolutionToTests = async (
   user_id: number,
@@ -23,23 +21,29 @@ module.exports.insertSolutionToTests = async (
   }
 
   return new Promise((resolve, reject) => {
-    const timer: any = setTimeout(() => {
-      clearTimeout(timer);
-      reject({
-        status: 408,
-        msg: "408: Request timeout - check for an infinite loop..",
-      });
-    }, 9000);
+    // const timer: any = setTimeout(() => {
+    //   clearTimeout(timer);
+    //   reject({
+    //     status: 408,
+    //     msg: "408: Request timeout - check for an infinite loop..",
+    //   });
+    // }, 25000);
 
+    let id: string;
+    if (kata_id < 10) {
+      id = `0+${kata_id}`;
+    } else {
+      id = `${kata_id}`;
+    }
     exec(
-      `npm run test ${test_path} ${kata_id} "${solutionToTest}"`,
-      { timeout: 6000 },
+      `npm run test ${test_path} ${id} "${solutionToTest}"`,
       (error, stdout: string, stderr: string) => {
         const consoleArr: string[] = stdout.split("\n");
         const allLogs: string[] = [];
         consoleArr.map((item) => {
           if (
             item.slice(0, 11) != "      at db" &&
+            item.slice(0, 15) != "      at Object" &&
             item.slice(0, 15) != "      at eval (" &&
             item != "> test" &&
             item.slice(0, 6) != "> jest" &&
@@ -64,7 +68,7 @@ module.exports.insertSolutionToTests = async (
             stderr.indexOf(" ●")
           );
           const success: boolean = false;
-          clearTimeout(timer);
+          //clearTimeout(timer);
           resolve({
             success: false,
             stderr: stderr,
@@ -74,7 +78,7 @@ module.exports.insertSolutionToTests = async (
             posted_solution: false,
           });
         } else {
-          clearTimeout(timer);
+          //clearTimeout(timer);
           const test_list: string = stderr.slice(
             stderr.indexOf(".js") + 5,
             stderr.indexOf("Test Suites")
