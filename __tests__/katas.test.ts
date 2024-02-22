@@ -20,6 +20,7 @@ interface KataData {
   description: string;
   test_path: string;
   difficulty: string;
+  topics: string[];
 }
 
 describe("katas", () => {
@@ -38,6 +39,17 @@ describe("katas", () => {
         expect(typeof kata.description).toBe("string");
         expect(typeof kata.test_path).toBe("string");
         expect(typeof kata.difficulty).toBe("string");
+      });
+    });
+    test("GET: 200 returns an array of all the kata objects, including a new key of 'topics' with an array of all that katas associated topics", async () => {
+      const { body } = await request(app).get("/api/katas").expect(200);
+
+      body.katas.forEach((kata: KataData) => {
+        expect(typeof kata.kata_name).toBe("string");
+        expect(typeof kata.description).toBe("string");
+        expect(typeof kata.test_path).toBe("string");
+        expect(typeof kata.difficulty).toBe("string");
+        expect(Array.isArray(kata.topics)).toBe(true);
       });
     });
     describe("?topic", () => {
@@ -70,7 +82,6 @@ describe("katas", () => {
 
         expect(response.body.msg).toBe("Topic not found");
       });
-      // 404 for non-existent topic eg topic=bananas
     });
     describe("?sort_by", () => {
       //date_created - asc is oldest first and desc is newest first
@@ -93,6 +104,14 @@ describe("katas", () => {
         test_path: expect.any(String),
         difficulty: "Medium",
       });
+    });
+    test("GET: 200 returns a kata object with a newly added topics key with an array of all associated topics", async () => {
+      const { body } = await request(app).get("/api/katas/1").expect(200);
+
+      expect(body.kata.topics).toEqual([
+        "string manipulation",
+        "nested arrays",
+      ]);
     });
     test("GET: 400 Returns an error if given an invalid kata id", async () => {
       const {
