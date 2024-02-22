@@ -9,7 +9,9 @@
     "listen": "node ./ts-built/listen.js",
     "test": "jest",
     "start": "node listen.js",
-    "seed-prod": "NODE_ENV=production npm run seed"
+    "seed-prod": "NODE_ENV=production npm run seed",
+    "tsc": "tsc",
+    "start:prod": "node ts-built/app.js"
   },
   "keywords": [],
   "author": "",
