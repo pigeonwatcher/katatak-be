@@ -48,7 +48,6 @@ describe("/api/test/:kata_id", () => {
     const response = await request(app)
       .post("/api/test/1")
       .send({
-        kata_id: 1,
         user_id: 1,
         solution_body:
           "function(){console.log('hiya');console.log('another');return[]}",

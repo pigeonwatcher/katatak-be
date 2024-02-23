@@ -41,7 +41,7 @@ describe("katas", () => {
         expect(typeof kata.difficulty).toBe("string");
       });
     });
-    test("GET: 200 returns an array of all the kata objects, including a new key of 'topics' with an array of all that katas associated topics", async () => {
+    test.only("GET: 200 returns an array of all the kata objects, including a new key of 'topics' with an array of all that katas associated topics", async () => {
       const { body } = await request(app).get("/api/katas").expect(200);
 
       body.katas.forEach((kata: KataData) => {
