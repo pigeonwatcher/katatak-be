@@ -31,8 +31,7 @@ const request = require("supertest");
                 (0, globals_1.expect)(typeof kata.difficulty).toBe("string");
             });
         }));
-        (0, globals_1.test)("GET: 200 returns an array of all the kata objects, including a new key of 'topics' with an array of all that katas associated topics", () => __awaiter(void 0, void 0, void 0, function* () {
-
+        globals_1.test.only("GET: 200 returns an array of all the kata objects, including a new key of 'topics' with an array of all that katas associated topics", () => __awaiter(void 0, void 0, void 0, function* () {
             const { body } = yield request(app).get("/api/katas").expect(200);
             body.katas.forEach((kata) => {
                 (0, globals_1.expect)(typeof kata.kata_name).toBe("string");
