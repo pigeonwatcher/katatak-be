@@ -1,0 +1,18 @@
+[
+  {
+    "topic_name": "maths",
+    "description": "You'll have to make significant use of the Math library object to solve these katas."
+  },
+  {
+    "topic_name": "string manipulation",
+    "description": "Messing about with strings. Messy, messy strings."
+  },
+  {
+    "topic_name": "nested arrays",
+    "description": "Arrays within arrays."
+  },
+  {
+    "topic_name": "objects",
+    "description": "Playing with objects and reference types."
+  }
+]

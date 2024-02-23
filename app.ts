@@ -1,12 +1,11 @@
 const express = require("express");
 const app = express();
 import apiRouter from "./routes/api-router";
+const cors = require("cors");
 import { ErrorRequestHandler, Request, Response, NextFunction } from "express";
 
-/* needed later
+app.use(cors());
 
-app.use(cors())
-*/
 app.use(express.json());
 
 interface ErrorMessage {

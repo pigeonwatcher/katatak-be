@@ -1,0 +1,80 @@
+[
+    {
+      "kata_name": "DNA Pairs",
+      "description": "Create a function that takes a string of DNA and matches each base with its pair, returning a nested array. In DNA, C pairs with G and T pairs with A.",
+      "test_path": "../db/data/kata-tests/1-dna.test.js",
+      "difficulty": "Medium",
+      "function_template": "function(dna){//your code here}"
+    },
+    {
+      "kata_name": "Square Root",
+      "description": "Write a function that takes a number (n) and returns the square root of that number.",
+      "test_path": "../db/data/kata-tests/2-squareRoot.test.js",
+      "difficulty": "Easy",
+      "function_template": "function(num){//your code here}"
+
+    },
+    {
+      "kata_name": "Fill Square",
+      "description": "The function `fillSquare` should take an array of arrays and should complete these arrays so that they are a square matrix with the value `null` standing in for any blank positions. If extra sub-arrays are needed to complete the square, these should be added at the bottom of the matrix.",
+      "test_path": "../db/data/kata-tests/3-fillSquare.test.js",
+      "difficulty": "Hard",
+      "function_template": "function(array){//your code here}"
+    },
+    {
+      "kata_name": "Tweet Data",
+      "description": "We want easy access to the following data: \n - The length of the tweet. \n - The amount of hash tags ( #katatak ) in the tweet as well as an array of them. \n - The amount of mentions ( @katatak ) in the tweet as well as an array of them. \n - We only want to return unique hash tags and handles mentioned.",
+      "test_path": "../db/data/kata-tests/4-tweetData.test.js",
+      "difficulty": "Medium",
+      "function_template": "function(tweet){//your code here}"
+    },
+    {
+      "kata_name": "FizzBuzz Multiples",
+      "description": "The challenge is to implement a function which adds all the multiples of three and five below a certain number. \n For example, if we list all the numbers below 12 that are multiples of 3 or 5, we get 3, 5, 6, 9 and 10. The sum of these multiples is 33.",
+      "test_path": "../db/data/kata-tests/5-fizzBuzzMultiples.test.js",
+      "difficulty": "Medium",
+      "function_template": "function(num){//your code here}"
+    },
+    {
+      "kata_name": "Update Remote Students",
+      "description": "The challenge is to implement a function that updates missing location info for students. \n This function will be called with an array of objects, each object representing a student on a bootcamp. Some of the students have a specified location property which is a string of the office they will be attending during their time on the course, but for some students that property is missing. \n Your function should return a new array, where all objects that were missing a location have been updated so that they now have a location property with a value of 'remote'. All other properties should remain as they were. \n This function must be a pure function, i.e. it should have no side effects, and your test suite should reflect this.",
+      "test_path": "../db/data/kata-tests/6-updateRemoteStudents.test.js",
+      "difficulty": "Medium",
+      "function_template": "function(array){//your code here}"
+    },
+    {
+      "kata_name": "Change Calculator",
+      "description": "The challenge is to implement a function that calculates the coins you would use to give a customer their change in a shop. The function takes one argument, which is the amount of change needed, in pence. The function should always return an object.",
+      "test_path": "../db/data/kata-tests/7-changeCalculator.test.js",
+      "difficulty": "Medium",
+      "function_template": "function(num){//your code here}"
+    },
+    {
+      "kata_name": "Sentence to Upper or Lower Camel Case",
+      "description": "The challenge is to implement a function which takes a sentence and converts it to upper or lower camel case. \n The function takes two arguments; the sentence, and a boolean, true if UpperCamelCase is to be returned and false if lowerCamelCase is to be returned.",
+      "test_path": "../db/data/kata-tests/8-upperLowerCamelCase.test.js",
+      "difficulty": "Medium",
+      "function_template": "function(str, isCamelCase){//your code here}"
+    },
+    {
+      "kata_name": "Fold String",
+      "description": "The challenge is to implement a function which takes a string of any length and turns each word inside out while keeping the order of the words intact.\n To turn a word inside out the internal letters will move out, and the external letters move toward the centre. \n If the word is even length, all letters will move. \n If the length is odd, you are expected to leave the 'middle' letter of the word where it is.\n Your function should also work for strings with spaces.",
+      "test_path": "../db/data/kata-tests/9-foldString.test.js",
+      "difficulty": "Medium",
+      "function_template": "function(str){//your code here}"
+    },
+    {
+      "kata_name": "Pig Latin",
+      "description": "In this kata you will write a function that translates English strings into Pig Latin. \n To translate to Pig Latin you take the first consonant (or consecutive consonants) of each word, move it to the end and also append 'ay'. If the word starts with a vowel, just append 'way' at the end.",
+      "test_path": "../db/data/kata-tests/10-pigLatin.test.js",
+      "difficulty": "Medium",
+      "function_template": "function(str){//your code here}"
+    },
+    {
+      "kata_name": "Find Most Repeated",
+      "description": "Create a function called findMostRepeated that looks through a flat array and returns an object that describes the most repeated element or elements in the array. \n The object will be in the format: \n { \n  elements: ['foo'],\n  repeats: 3\n }\n If the passed array is empty, or there are no repeated elements, the function should return:\n { \n  elements: [], \n  repeats: null \n }",
+      "test_path": "../db/data/kata-tests/11-findMostRepeated.test.js",
+      "difficulty": "Hard",
+      "function_template": "function(array){//your code here}"
+    }
+  ]
