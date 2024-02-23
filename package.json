@@ -6,9 +6,8 @@
   "scripts": {
     "setup-dbs": "psql -f ./db/setup.sql",
     "seed": "node ./db/seeds/run-seed.js",
-    "listen": "node ./ts-built/listen.js",
+    "start": "node ./ts-built/listen.js",
     "test": "jest",
-    "start": "node listen.js",
     "seed-prod": "NODE_ENV=production npm run seed",
     "tsc": "tsc",
     "start:prod": "node ts-built/app.js"
