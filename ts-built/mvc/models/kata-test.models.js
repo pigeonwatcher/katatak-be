@@ -60,7 +60,7 @@ module.exports.insertSolutionToTests = (user_id, solutionToTest, kata_id, test_p
                 // console.log(error, "<< error in model");
                 // console.log(stdout, "<< stdout");
                 // console.log(stderr, "<< stderr");
-                const test_list = stderr.slice(stderr.indexOf(".js") + 5, stderr.indexOf(" ●"));
+                const test_list = stderr.slice(stderr.indexOf(")") + 5, stderr.indexOf(" ●"));
                 const success = false;
                 //clearTimeout(timer);
                 resolve({
