@@ -44,3 +44,9 @@ A test database and a development dtabase have been provided in this repository.
 A script is provided for setting up the database (or, if need be, wiping it completely and starting again): this is `npm run setup-dbs` in your CLI. Be aware, if you run this script, it drops the database before creating it - you will need to seed data after running this command.
 ### Run the Seed Script
 A seed script is provided for seeding the database - `npm run seed`. Unless you are running a test environment, it will default to seeding the development data. A jest testing suite is also provided in this package that has a seed script running before each test - it will seed the test data in this case.
+## Testing Suite
+This repo was tested using Jest v29.7.0. The Jest configuration has been made to account for Typescript as per the [Jest Documentation](https://jestjs.io/docs/getting-started#via-ts-jest) using `ts-jest`.
+### Jest as a Dependency
+This application uses Jest to test user submitted Javascript solutions, so it needs to be installed as a client-side dependency. It should be noted that whilst we would normally use `jest-sorted` to test the sorting of queries, it is not compatible with Typescript.
+# Thank You
+For exploring our little repo. We thought it was cool, and we hope you think so to. If you have any constructive feedback to provide, feel free to [raise an issue](https://github.com/pigeonwatcher/katatak-be/issues/new) directly on the Github page.
