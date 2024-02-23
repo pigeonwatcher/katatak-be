@@ -9,10 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetchAllTopics = void 0;
-const fs = require('fs/promises');
-const format = require('pg-format');
-const { db } = require('../../db/connection');
+exports.checkTopicExists = exports.fetchAllTopics = void 0;
+const fs = require("fs/promises");
+const format = require("pg-format");
+const { db } = require("../../db/connection");
 function fetchAllTopics() {
     return __awaiter(this, void 0, void 0, function* () {
         const { rows: topics } = yield db.query(`SELECT * FROM topics`);
@@ -20,3 +20,13 @@ function fetchAllTopics() {
     });
 }
 exports.fetchAllTopics = fetchAllTopics;
+function checkTopicExists(topic) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { rows } = yield db.query(`SELECT * FROM topics WHERE topic_name =$1`, [
+            topic,
+        ]);
+        if (rows.length === 0)
+            return Promise.reject({ status: 404, msg: "Topic not found" });
+    });
+}
+exports.checkTopicExists = checkTopicExists;

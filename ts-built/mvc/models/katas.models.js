@@ -10,21 +10,39 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.fetchKataByID = exports.fetchAllKatas = void 0;
-const fs = require('fs/promises');
-const format = require('pg-format');
-const { db } = require('../../db/connection');
-function fetchAllKatas() {
+const fs = require("fs/promises");
+const format = require("pg-format");
+const { db } = require("../../db/connection");
+function fetchAllKatas(topic, order_by) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { rows: katas } = yield db.query(`SELECT * FROM katas`);
-        return katas;
+        const validOrderBys = ["hardest", "easiest"];
+        if (order_by && !validOrderBys.includes(order_by))
+            return Promise.reject({ status: 400, msg: "invalid order_by" });
+        let queryStr = `SELECT katas.*, json_agg(topics.topic_name) AS topics FROM katas JOIN kata_topics ON katas.kata_id = kata_topics.kata_id JOIN topics ON kata_topics.topic_id = topics.topic_id`;
+        const queries = [];
+        if (topic) {
+            queries.push(topic);
+            queryStr += ` WHERE topic_name = $1`;
+        }
+        let order = "ASC";
+        if (order_by === "hardest") {
+            order = "DESC";
+        }
+        const orderStr = ` ORDER BY CASE difficulty WHEN 'Easy' THEN 1 WHEN 'Medium' THEN 2 WHEN 'Hard' THEN 3 END ${order} `;
+        queryStr += ` GROUP BY katas.kata_id ${orderStr}`;
+        const { rows } = yield db.query(queryStr, queries);
+        return rows;
     });
 }
 exports.fetchAllKatas = fetchAllKatas;
 function fetchKataByID(kata_id) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { rows: kata } = yield db.query(`SELECT * FROM katas WHERE kata_id=$1`, [kata_id]);
+        const { rows: kata } = yield db.query(`SELECT katas.*, json_agg(topics.topic_name) AS topics FROM katas JOIN kata_topics ON katas.kata_id = kata_topics.kata_id JOIN topics ON kata_topics.topic_id = topics.topic_id WHERE katas.kata_id=$1 GROUP BY katas.kata_id`, [kata_id]);
         if (kata.length === 0) {
-            return Promise.reject({ status: 404, msg: `A kata with the id ${kata_id} was not found.` });
+            return Promise.reject({
+                status: 404,
+                msg: `A kata with the id ${kata_id} was not found.`,
+            });
         }
         return kata[0];
     });
