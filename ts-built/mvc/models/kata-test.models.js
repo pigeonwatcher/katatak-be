@@ -34,12 +34,12 @@ module.exports.insertSolutionToTests = (user_id, solutionToTest, kata_id, test_p
         // }, 25000);
         let id;
         if (kata_id < 10) {
-            id = `0+${kata_id}`;
+            id = `0${kata_id}`;
         }
         else {
             id = `${kata_id}`;
         }
-        (0, child_process_1.exec)(`npm run test ${test_path} ${id} "${solutionToTest}"`, (error, stdout, stderr) => {
+        (0, child_process_1.exec)(`npm test ${test_path} ${id} "${solutionToTest}"`, (error, stdout, stderr) => {
             const consoleArr = stdout.split("\n");
             const allLogs = [];
             consoleArr.map((item) => {

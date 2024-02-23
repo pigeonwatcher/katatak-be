@@ -31,12 +31,12 @@ module.exports.insertSolutionToTests = async (
 
     let id: string;
     if (kata_id < 10) {
-      id = `0+${kata_id}`;
+      id = `0${kata_id}`;
     } else {
       id = `${kata_id}`;
     }
     exec(
-      `npm run test ${test_path} ${id} "${solutionToTest}"`,
+      `npm test ${test_path} ${id} "${solutionToTest}"`,
       (error, stdout: string, stderr: string) => {
         const consoleArr: string[] = stdout.split("\n");
         const allLogs: string[] = [];
