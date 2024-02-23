@@ -10,11 +10,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getKata = exports.getAllKatas = void 0;
-const { fetchAllKatas, fetchKataByID } = require('../models/katas.models');
+const { fetchAllKatas, fetchKataByID } = require("../models/katas.models");
+const { checkTopicExists } = require("../models/topics.models");
 function getAllKatas(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
+        const { topic, order_by } = req.query;
         try {
-            const katas = yield fetchAllKatas();
+            if (topic) {
+                const topicExists = yield checkTopicExists(topic);
+            }
+            const katas = yield fetchAllKatas(topic, order_by);
             res.status(200).send({ katas });
         }
         catch (err) {
