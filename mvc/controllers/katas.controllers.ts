@@ -7,14 +7,13 @@ export async function getAllKatas(
   res: Response,
   next: NextFunction
 ) {
-  const { topic } = req.query;
+  const { topic, order_by } = req.query;
 
   try {
     if (topic) {
-      // check topic exists
       const topicExists: boolean = await checkTopicExists(topic);
     }
-    const katas = await fetchAllKatas(topic);
+    const katas = await fetchAllKatas(topic, order_by);
     res.status(200).send({ katas });
   } catch (err) {
     next(err);

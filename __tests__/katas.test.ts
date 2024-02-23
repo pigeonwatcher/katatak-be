@@ -83,9 +83,28 @@ describe("katas", () => {
         expect(response.body.msg).toBe("Topic not found");
       });
     });
-    describe("?sort_by", () => {
+    describe("?order_by", () => {
+      test("GET: 200 returns an array ordered by easiest first by default", async () => {
+        const { body } = await request(app).get("/api/katas").expect(200);
+
+        expect(body.katas[0].kata_name).toBe("Square Root");
+      });
+      test("GET: 200 returns an array ordered by hardest first when passed an order_by=hardest query", async () => {
+        const { body } = await request(app)
+          .get("/api/katas?order_by=hardest")
+          .expect(200);
+
+        expect(body.katas[0].kata_name).toBe("Fill Square");
+      });
+      test("GET: 400 responds with appropriate status code and error message when passed an invalid order_by query", async () => {
+        const { body } = await request(app)
+          .get("/api/katas?order_by=bananas")
+          .expect(400);
+
+        expect(body.msg).toBe("Bad Request");
+      });
       //date_created - asc is oldest first and desc is newest first
-      //difficulty -
+      //400 if passed invalid order_by ?order_by=bananas
     });
   });
   describe("api/katas/:kata_id", () => {
