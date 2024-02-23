@@ -64,7 +64,7 @@ module.exports.insertSolutionToTests = async (
           // console.log(stdout, "<< stdout");
           // console.log(stderr, "<< stderr");
           const test_list = stderr.slice(
-            stderr.indexOf(".js") + 5,
+            stderr.indexOf(")") + 5,
             stderr.indexOf(" ●")
           );
           const success: boolean = false;
