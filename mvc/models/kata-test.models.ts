@@ -31,7 +31,7 @@ module.exports.insertSolutionToTests = async (
 
     let id: string;
     if (kata_id < 10) {
-      id = `0+${kata_id}`;
+      id = `0${kata_id}`;
     } else {
       id = `${kata_id}`;
     }
