@@ -5,6 +5,10 @@ describe("pigLatin function", () => {
   const funcPart = data.slice(data.indexOf("{") + 1, data.length - 1).trim();
   const pigLatin = new Function("str", funcPart);
 
+  beforeEach(() => {
+    console.log(`new test:`);
+  });
+
   it("Should return an empty string if given an empty string", () => {
     expect(pigLatin("")).toBe("");
   });

@@ -5,6 +5,10 @@ describe("Testing for updateRemoteStudents Pure Function Challenge", () => {
   const funcPart = data.slice(data.indexOf("{") + 1, data.length - 1).trim();
   const updateRemoteStudents = new Function("array", funcPart);
 
+  beforeEach(() => {
+    console.log(`new test:`);
+  });
+
   const singleStudent = [
     {
       name: "Euler",

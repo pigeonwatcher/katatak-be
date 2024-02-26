@@ -5,6 +5,10 @@ describe("Sentence To Camel Case Testing", () => {
   const funcPart = data.slice(data.indexOf("{") + 1, data.length - 1).trim();
   const sentenceToCamelCase = new Function("str", "isCamelCase", funcPart);
 
+  beforeEach(() => {
+    console.log(`new test:`);
+  });
+
   test("Should return an empty string if given an empty string and boolean", () => {
     //arrange
     sentence = "";

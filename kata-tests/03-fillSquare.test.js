@@ -5,6 +5,10 @@ describe("fillSquare()", () => {
   const funcPart = data.slice(data.indexOf("{") + 1, data.length - 1).trim();
   const fillSquare = new Function("array", funcPart);
 
+  beforeEach(() => {
+    console.log(`new test:`);
+  });
+
   test("should return an array of nested arrays with null added to fill any sub arrays, when passed an array with the same number of nested arrays as the length of the first array", () => {
     const square = [[1, 2, 3], [1, 2], [1]];
     const filledSquare = [

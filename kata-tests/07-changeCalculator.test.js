@@ -5,6 +5,10 @@ describe("changeCalculator", () => {
   const funcPart = data.slice(data.indexOf("{") + 1, data.length - 1).trim();
   const changeCalculator = new Function("num", funcPart);
 
+  beforeEach(() => {
+    console.log(`new test:`);
+  });
+
   test("should return an object", () => {
     expect(typeof changeCalculator(1)).toBe("object");
   });

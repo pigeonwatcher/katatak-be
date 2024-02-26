@@ -5,6 +5,10 @@ describe("Testing for FizzBuzz multiples of 3 and 5 below a certain number summe
   const funcPart = data.slice(data.indexOf("{") + 1, data.length - 1).trim();
   const addFizzBuzzMultiples = new Function("num", funcPart);
 
+  beforeEach(() => {
+    console.log(`new test:`);
+  });
+
   test("FizzBuzz multiples should sum to 0 if sent an integer of less than 4", () => {
     expect(addFizzBuzzMultiples(1)).toBe(0);
     expect(addFizzBuzzMultiples(2)).toBe(0);
