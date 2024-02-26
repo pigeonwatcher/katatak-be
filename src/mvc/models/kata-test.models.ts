@@ -21,13 +21,10 @@ module.exports.insertSolutionToTests = async (
   }
 
   return new Promise((resolve, reject) => {
-    // const timer: any = setTimeout(() => {
-    //   clearTimeout(timer);
-    //   reject({
-    //     status: 408,
-    //     msg: "408: Request timeout - check for an infinite loop..",
-    //   });
-    // }, 25000);
+    const user_id = 123;
+    const uniqueKey = `INPUT_TO_TEST${user_id}`;
+    process.env[uniqueKey] = JSON.stringify(solutionToTest);
+    //console.log(process.env.INPUT_TO_TEST, "<< INPUT_TO_TEST IN MODEL");
 
     let id: string;
     if (kata_id < 10) {
@@ -36,7 +33,7 @@ module.exports.insertSolutionToTests = async (
       id = `${kata_id}`;
     }
     exec(
-      `npm run test-prod ./kata-tests/${test_path} ${id} "${solutionToTest}"`,
+      `npm run test-prod ./kata-tests/${test_path} ${id} "${user_id}"`,
       (error: any, stdout: string, stderr: string) => {
         const consoleArr: string[] = stdout.split("\n");
         const allLogs: string[] = [];
@@ -50,7 +47,8 @@ module.exports.insertSolutionToTests = async (
             item.slice(0, 9) != "> katatak" &&
             item.slice(0, 12) != "> PGDATABASE" &&
             item != "  console.log" &&
-            item != ""
+            item != "" &&
+            item.slice(0, 12) != "      at log"
           ) {
             allLogs.push(item.trim());
           }

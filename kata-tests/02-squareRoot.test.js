@@ -1,5 +1,6 @@
 describe("squareRoot()", () => {
-  const data = process.argv[4];
+  const uniqueKey = `INPUT_TO_TEST${Number(process.argv[4])}`;
+  const data = JSON.parse(process.env[uniqueKey]);
   console.log("delete from here"); // DO NOT DELETE - we use this log to mark where to slice the stdout in order to capture the user's console logs
   const funcPart = data.slice(data.indexOf("{") + 1, data.length - 1).trim();
   const squareRoot = new Function("num", funcPart);

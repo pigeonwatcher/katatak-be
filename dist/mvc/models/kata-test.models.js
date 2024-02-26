@@ -25,13 +25,10 @@ module.exports.insertSolutionToTests = (user_id, solutionToTest, kata_id, test_p
         });
     }
     return new Promise((resolve, reject) => {
-        // const timer: any = setTimeout(() => {
-        //   clearTimeout(timer);
-        //   reject({
-        //     status: 408,
-        //     msg: "408: Request timeout - check for an infinite loop..",
-        //   });
-        // }, 25000);
+        const user_id = 123;
+        const uniqueKey = `INPUT_TO_TEST${user_id}`;
+        process.env[uniqueKey] = JSON.stringify(solutionToTest);
+        //console.log(process.env.INPUT_TO_TEST, "<< INPUT_TO_TEST IN MODEL");
         let id;
         if (kata_id < 10) {
             id = `0${kata_id}`;
@@ -39,7 +36,7 @@ module.exports.insertSolutionToTests = (user_id, solutionToTest, kata_id, test_p
         else {
             id = `${kata_id}`;
         }
-        (0, child_process_1.exec)(`npm run test-prod ./kata-tests/${test_path} ${id} "${solutionToTest}"`, (error, stdout, stderr) => {
+        (0, child_process_1.exec)(`npm run test-prod ./kata-tests/${test_path} ${id} "${user_id}"`, (error, stdout, stderr) => {
             const consoleArr = stdout.split("\n");
             const allLogs = [];
             consoleArr.map((item) => {
@@ -51,7 +48,8 @@ module.exports.insertSolutionToTests = (user_id, solutionToTest, kata_id, test_p
                     item.slice(0, 9) != "> katatak" &&
                     item.slice(0, 12) != "> PGDATABASE" &&
                     item != "  console.log" &&
-                    item != "") {
+                    item != "" &&
+                    item.slice(0, 12) != "      at log") {
                     allLogs.push(item.trim());
                 }
             });
