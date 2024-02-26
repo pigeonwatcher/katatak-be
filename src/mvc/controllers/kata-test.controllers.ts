@@ -29,7 +29,7 @@ module.exports.postSolutionToTests = async (
       );
       results.posted_solution = true;
     }
-    console.log(results, "<< results");
+    //console.log(results, "<< results");
     res.status(201).send({ results });
   } catch (err: any) {
     const code: number = err.status;
