@@ -1,6 +1,12 @@
 import { exec } from "child_process";
 const { db } = require("../../db/connection");
 
+type individualTestObj = {
+  pass: boolean;
+  description: string;
+  logs: object;
+};
+
 module.exports.insertSolutionToTests = async (
   user_id: number,
   solutionToTest: string,
@@ -35,44 +41,75 @@ module.exports.insertSolutionToTests = async (
     exec(
       `npm run test-prod ./kata-tests/${test_path} ${id} "${user_id}"`,
       (error: any, stdout: string, stderr: string) => {
-        const consoleArr: string[] = stdout.split("\n");
-        const allLogs: string[] = [];
-        consoleArr.map((item) => {
-          if (
-            item.slice(0, 11) != "      at db" &&
-            item.slice(0, 15) != "      at Object" &&
-            item.slice(0, 15) != "      at eval (" &&
-            item != "> test" &&
-            item.slice(0, 6) != "> jest" &&
-            item.slice(0, 9) != "> katatak" &&
-            item.slice(0, 12) != "> PGDATABASE" &&
-            item != "  console.log" &&
-            item != "" &&
-            item.slice(0, 12) != "      at log"
-          ) {
-            allLogs.push(item.trim());
-          }
+        const consoleArr: string[] = stdout.split("new test:");
+        const allLogs: object[] = [];
+        // const usefulLogs: string[] = allLogs.slice(
+        //   allLogs.indexOf("delete from here") + 1,
+        //   allLogs.length
+        // );
+        consoleArr.shift();
+        consoleArr.forEach((testsLogs) => {
+          const innerArr: string[] = [];
+          const stringedArr: string[] = testsLogs.split("\n");
+          stringedArr.map((item) => {
+            if (
+              item.slice(0, 11) != "      at db" &&
+              item.slice(0, 15) != "      at Object" &&
+              item.slice(0, 15) != "      at eval (" &&
+              item != "> test" &&
+              item.slice(0, 6) != "> jest" &&
+              item.slice(0, 9) != "> katatak" &&
+              item.slice(0, 12) != "> PGDATABASE" &&
+              item != "  console.log" &&
+              item.trim() != ""
+            ) {
+              innerArr.push(item.trim());
+            }
+          });
+          allLogs.push(innerArr);
         });
-        const usefulLogs: string[] = allLogs.slice(
-          allLogs.indexOf("delete from here") + 1,
-          allLogs.length
-        );
+
         if (error) {
-          // console.log(error, "<< error in model");
-          // console.log(stdout, "<< stdout");
-          // console.log(stderr, "<< stderr");
           const test_list = stderr.slice(
             stderr.indexOf(".js") + 5,
             stderr.indexOf(" ●")
           );
+
+          const charBeforeTick: RegExp = /(?=✓|✕)/g;
+
+          const tests = test_list.split(charBeforeTick);
+          tests.shift();
+
+          let counter: number = 0;
+          const testObjArr: individualTestObj[] = tests.map(
+            (result: string) => {
+              const pass: boolean = result.includes("✓");
+              let description: string = "";
+              if (pass) {
+                description += result.split("✓").join("");
+              } else {
+                description += result.split("✕").join("");
+              }
+
+              const testObj: individualTestObj = {
+                pass: pass,
+                description: description,
+                logs: allLogs[counter],
+              };
+              counter++;
+              return testObj;
+            }
+          );
+
+          //
           const success: boolean = false;
           //clearTimeout(timer);
           resolve({
             success: false,
             //stderr: stderr,
             //stdout: stdout,
-            test_results: test_list,
-            logs: usefulLogs,
+            test_results: testObjArr,
+            logs: allLogs,
             posted_solution: false,
           });
         } else {
@@ -81,12 +118,37 @@ module.exports.insertSolutionToTests = async (
             stderr.indexOf(".js") + 5,
             stderr.indexOf("Test Suites")
           );
+          const charBeforeTick: RegExp = /(?=✓|✕)/g;
+
+          const tests = test_list.split(charBeforeTick);
+          tests.shift();
+
+          let counter: number = 0;
+          const testObjArr: individualTestObj[] = tests.map(
+            (result: string) => {
+              const pass: boolean = result.includes("✓");
+              let description: string = "";
+              if (pass) {
+                description += result.split("✓").join("");
+              } else {
+                description += result.split("✕").join("");
+              }
+
+              const testObj: individualTestObj = {
+                pass: pass,
+                description: description,
+                logs: allLogs[counter],
+              };
+              counter++;
+              return testObj;
+            }
+          );
           resolve({
             success: true,
             //stderr: stderr,
             //stdout: stdout,
-            test_results: test_list,
-            logs: usefulLogs,
+            test_results: testObjArr,
+            logs: allLogs,
             posted_solution: false,
           });
         }

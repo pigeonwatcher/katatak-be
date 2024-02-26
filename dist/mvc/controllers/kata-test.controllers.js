@@ -22,7 +22,7 @@ module.exports.postSolutionToTests = (req, res, next) => __awaiter(void 0, void 
             const postedSolutionObj = yield insertSolutionToSolutions(user_id, solutionToTest, kata_id);
             results.posted_solution = true;
         }
-        //console.log(results, "<< results");
+        // console.log(results, "<< results");
         res.status(201).send({ results });
     }
     catch (err) {
