@@ -36,7 +36,7 @@ module.exports.insertSolutionToTests = async (
       id = `${kata_id}`;
     }
     exec(
-      `npm run test-prod ./dist/db/kata-tests/${test_path} ${id} "${solutionToTest}"`,
+      `npm run test-prod ./kata-tests/${test_path} ${id} "${solutionToTest}"`,
       (error, stdout: string, stderr: string) => {
         const consoleArr: string[] = stdout.split("\n");
         const allLogs: string[] = [];
