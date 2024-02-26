@@ -53,7 +53,7 @@ describe("/api/test/:kata_id", () => {
           "function(){console.log('hiya');console.log('another');return[]}",
       })
       .expect(201);
-    expect(response.body.results.logs.includes("hiya")).toBe(true);
+    expect(response.body.results.logs[0].includes("hiya")).toBe(true);
   });
   test("POST: 201 should return a results object with a boolean Success key as false if not all tests have passed", async () => {
     const response = await request(app)

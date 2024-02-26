@@ -40,35 +40,64 @@ module.exports.insertSolutionToTests = (user_id, solutionToTest, kata_id, test_p
             id = `${kata_id}`;
         }
         (0, child_process_1.exec)(`npm run test-prod ./kata-tests/${test_path} ${id} "${solutionToTest}"`, (error, stdout, stderr) => {
-            const consoleArr = stdout.split("\n");
+            const consoleArr = stdout.split("new test:");
             const allLogs = [];
-            consoleArr.map((item) => {
-                if (item.slice(0, 11) != "      at db" &&
-                    item.slice(0, 15) != "      at Object" &&
-                    item.slice(0, 15) != "      at eval (" &&
-                    item != "> test" &&
-                    item.slice(0, 6) != "> jest" &&
-                    item.slice(0, 9) != "> katatak" &&
-                    item.slice(0, 12) != "> PGDATABASE" &&
-                    item != "  console.log" &&
-                    item != "") {
-                    allLogs.push(item.trim());
-                }
+            // const usefulLogs: string[] = allLogs.slice(
+            //   allLogs.indexOf("delete from here") + 1,
+            //   allLogs.length
+            // );
+            consoleArr.shift();
+            consoleArr.forEach((testsLogs) => {
+                const innerArr = [];
+                const stringedArr = testsLogs.split("\n");
+                stringedArr.map((item) => {
+                    if (item.slice(0, 11) != "      at db" &&
+                        item.slice(0, 15) != "      at Object" &&
+                        item.slice(0, 15) != "      at eval (" &&
+                        item != "> test" &&
+                        item.slice(0, 6) != "> jest" &&
+                        item.slice(0, 9) != "> katatak" &&
+                        item.slice(0, 12) != "> PGDATABASE" &&
+                        item != "  console.log" &&
+                        item.trim() != "") {
+                        innerArr.push(item.trim());
+                    }
+                });
+                allLogs.push(innerArr);
             });
-            const usefulLogs = allLogs.slice(allLogs.indexOf("delete from here") + 1, allLogs.length);
             if (error) {
-                // console.log(error, "<< error in model");
-                // console.log(stdout, "<< stdout");
-                // console.log(stderr, "<< stderr");
                 const test_list = stderr.slice(stderr.indexOf(".js") + 5, stderr.indexOf(" ●"));
+                const charBeforeTick = /(?=✓|✕)/g;
+                const tests = test_list.split(charBeforeTick);
+                tests.shift();
+                let counter = 0;
+                const testObjArr = tests.map((result) => {
+                    const pass = result.includes("✓");
+                    let description = "";
+                    if (pass) {
+                        description += result.split("✓").join("");
+                    }
+                    else {
+                        description += result.split("✕").join("");
+                    }
+                    console.log(typeof allLogs[counter]);
+                    const testObj = {
+                        pass: pass,
+                        description: description,
+                        logs: allLogs[counter],
+                    };
+                    counter++;
+                    return testObj;
+                });
+                //
                 const success = false;
                 //clearTimeout(timer);
                 resolve({
                     success: false,
                     //stderr: stderr,
                     //stdout: stdout,
-                    test_results: test_list,
-                    logs: usefulLogs,
+                    test_results: testObjArr,
+                    logs: allLogs,
                     posted_solution: false,
                 });
             }
@@ -80,7 +109,7 @@ module.exports.insertSolutionToTests = (user_id, solutionToTest, kata_id, test_p
                     //stderr: stderr,
                     //stdout: stdout,
                     test_results: test_list,
-                    logs: usefulLogs,
+                    logs: allLogs,
                     posted_solution: false,
                 });
             }

@@ -4,6 +4,10 @@ console.log("delete from here"); // DO NOT DELETE - we use this log to mark wher
 const funcPart = data.slice(data.indexOf("{") + 1, data.length - 1).trim();
 const dnaPairs = new Function("dna", funcPart);
 
+beforeEach(() => {
+  console.log(`new test:`);
+});
+
 describe("dnaPairs()", () => {
   test("returns an array", () => {
     // expect(process.argv[3]).toEqual("user123");

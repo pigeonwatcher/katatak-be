@@ -48,7 +48,7 @@ const data = require("../db/data/test-data/index");
             solution_body: "function(){console.log('hiya');console.log('another');return[]}",
         })
             .expect(201);
-        (0, globals_1.expect)(response.body.results.logs.includes("hiya")).toBe(true);
+        (0, globals_1.expect)(response.body.results.logs[0].includes("hiya")).toBe(true);
     }));
     (0, globals_1.test)("POST: 201 should return a results object with a boolean Success key as false if not all tests have passed", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield request(app)
