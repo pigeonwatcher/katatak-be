@@ -37,7 +37,7 @@ module.exports.insertSolutionToTests = async (
     }
     exec(
       `npm run test-prod ./kata-tests/${test_path} ${id} "${solutionToTest}"`,
-      (error, stdout: string, stderr: string) => {
+      (error: any, stdout: string, stderr: string) => {
         const consoleArr: string[] = stdout.split("\n");
         const allLogs: string[] = [];
         consoleArr.map((item) => {
@@ -71,8 +71,8 @@ module.exports.insertSolutionToTests = async (
           //clearTimeout(timer);
           resolve({
             success: false,
-            stderr: stderr,
-            stdout: stdout,
+            //stderr: stderr,
+            //stdout: stdout,
             test_results: test_list,
             logs: usefulLogs,
             posted_solution: false,
@@ -85,8 +85,8 @@ module.exports.insertSolutionToTests = async (
           );
           resolve({
             success: true,
-            stderr: stderr,
-            stdout: stdout,
+            //stderr: stderr,
+            //stdout: stdout,
             test_results: test_list,
             logs: usefulLogs,
             posted_solution: false,

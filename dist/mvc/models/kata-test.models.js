@@ -39,7 +39,7 @@ module.exports.insertSolutionToTests = (user_id, solutionToTest, kata_id, test_p
         else {
             id = `${kata_id}`;
         }
-        (0, child_process_1.exec)(`npm run test-prod ./dist/db/kata-tests/${test_path} ${id} "${solutionToTest}"`, (error, stdout, stderr) => {
+        (0, child_process_1.exec)(`npm run test-prod ./kata-tests/${test_path} ${id} "${solutionToTest}"`, (error, stdout, stderr) => {
             const consoleArr = stdout.split("\n");
             const allLogs = [];
             consoleArr.map((item) => {
@@ -65,8 +65,8 @@ module.exports.insertSolutionToTests = (user_id, solutionToTest, kata_id, test_p
                 //clearTimeout(timer);
                 resolve({
                     success: false,
-                    stderr: stderr,
-                    stdout: stdout,
+                    //stderr: stderr,
+                    //stdout: stdout,
                     test_results: test_list,
                     logs: usefulLogs,
                     posted_solution: false,
@@ -77,8 +77,8 @@ module.exports.insertSolutionToTests = (user_id, solutionToTest, kata_id, test_p
                 const test_list = stderr.slice(stderr.indexOf(".js") + 5, stderr.indexOf("Test Suites"));
                 resolve({
                     success: true,
-                    stderr: stderr,
-                    stdout: stdout,
+                    //stderr: stderr,
+                    //stdout: stdout,
                     test_results: test_list,
                     logs: usefulLogs,
                     posted_solution: false,
