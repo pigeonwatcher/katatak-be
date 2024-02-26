@@ -109,10 +109,19 @@
     },
     "exampleResponse": {
       "success": false,
-      "stderr": "stderr is a large string of the standard err output from exec running the users solution through a test",
-      "stdout": "stdout is a large string of the standard output from exec running the users solution through a test",
-      "test_results": "dnaPairs()\n' +'    ✓ returns an array (3 ms)\n' +'    ✓ returns an empty array when passed an empty string (1 ms)\n' +'    ✓ returns array with a nested array of correct pair when passed one character (1 ms)\n' +'    ✓ returns array of nested arrays when passed any number of chars (2 ms)\n' +'\n",
-      "logs": ["hello"],
+      "test_results": [
+        {
+          "pass": false,
+          "description": " returns an array (16 ms)\n    ",
+          "logs": ["hiya", "woohoo"]
+        },
+        {
+          "pass": false,
+          "description": " returns an empty array when passed an empty string (9 ms)\n    ",
+          "logs": ["hiya", "woohoo"]
+        }
+      ],
+      "logs": [["hello"], ["hi", "hello"]],
       "posted_solution": false
     }
   }

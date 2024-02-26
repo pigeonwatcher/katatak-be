@@ -5,6 +5,10 @@ describe("getTweetData", () => {
   const funcPart = data.slice(data.indexOf("{") + 1, data.length - 1).trim();
   const getTweetData = new Function("tweet", funcPart);
 
+  beforeEach(() => {
+    console.log(`new test:`);
+  });
+
   test("returns an object", () => {
     expect(typeof getTweetData("a tweet")).toBe("object");
   });

@@ -5,6 +5,10 @@ describe("foldString function", () => {
   const funcPart = data.slice(data.indexOf("{") + 1, data.length - 1).trim();
   const foldString = new Function("string", funcPart);
 
+  beforeEach(() => {
+    console.log(`new test:`);
+  });
+
   it("Will return a string unchanged if equal to or less than length 3", () => {
     expect(foldString("")).toBe("");
     expect(foldString("a")).toBe("a");

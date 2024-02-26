@@ -5,6 +5,10 @@ describe("squareRoot()", () => {
   const funcPart = data.slice(data.indexOf("{") + 1, data.length - 1).trim();
   const squareRoot = new Function("num", funcPart);
 
+  beforeEach(() => {
+    console.log(`new test:`);
+  });
+
   test("should be a function", () => {
     expect(typeof squareRoot).toBe("function");
   });

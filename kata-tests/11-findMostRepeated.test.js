@@ -5,6 +5,10 @@ describe("findMostRepeated()", () => {
   const funcPart = data.slice(data.indexOf("{") + 1, data.length - 1).trim();
   const findMostRepeated = new Function("array", funcPart);
 
+  beforeEach(() => {
+    console.log(`new test:`);
+  });
+
   test("An empty array should return an empty element array with null repeats", () => {
     //arrange
     const testArr = [];
