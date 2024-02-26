@@ -80,7 +80,6 @@ module.exports.insertSolutionToTests = (user_id, solutionToTest, kata_id, test_p
                     else {
                         description += result.split("✕").join("");
                     }
-                    console.log(typeof allLogs[counter]);
                     const testObj = {
                         pass: pass,
                         description: description,
@@ -104,11 +103,32 @@ module.exports.insertSolutionToTests = (user_id, solutionToTest, kata_id, test_p
             else {
                 //clearTimeout(timer);
                 const test_list = stderr.slice(stderr.indexOf(".js") + 5, stderr.indexOf("Test Suites"));
+                const charBeforeTick = /(?=✓|✕)/g;
+                const tests = test_list.split(charBeforeTick);
+                tests.shift();
+                let counter = 0;
+                const testObjArr = tests.map((result) => {
+                    const pass = result.includes("✓");
+                    let description = "";
+                    if (pass) {
+                        description += result.split("✓").join("");
+                    }
+                    else {
+                        description += result.split("✕").join("");
+                    }
+                    const testObj = {
+                        pass: pass,
+                        description: description,
+                        logs: allLogs[counter],
+                    };
+                    counter++;
+                    return testObj;
+                });
                 resolve({
                     success: true,
                     //stderr: stderr,
                     //stdout: stdout,
-                    test_results: test_list,
+                    test_results: testObjArr,
                     logs: allLogs,
                     posted_solution: false,
                 });
