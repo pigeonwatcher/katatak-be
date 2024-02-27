@@ -31,7 +31,9 @@ app.use(((err, req, res, next) => {
         msg: "",
     };
     if (err.status == 404) {
-        if (err.msg === "User does not exist!" || err.msg === "Topic not found") {
+        if (err.msg === "User does not exist!" ||
+            err.msg === "Topic not found" ||
+            err.msg === "No solutions found for that user") {
             errorMsg.msg = err.msg;
             res.status(404).send(errorMsg);
         }

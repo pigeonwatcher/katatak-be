@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetchUserById = exports.fetchUsers = void 0;
+exports.fetchSolutionsByUserId = exports.fetchUserById = exports.fetchUsers = void 0;
 const { db } = require("../../db/connection");
 function fetchUsers() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -30,3 +30,17 @@ function fetchUserById(user_id) {
     });
 }
 exports.fetchUserById = fetchUserById;
+function fetchSolutionsByUserId(user_id) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const queryStr = `SELECT solutions.*, katas.kata_name FROM solutions JOIN katas ON solutions.kata_id = katas.kata_id WHERE solutions.user_id = $1`;
+        const { rows } = yield db.query(queryStr, [user_id]);
+        if (rows.length === 0) {
+            return Promise.reject({
+                status: 404,
+                msg: `No solutions found for that user`,
+            });
+        }
+        return rows;
+    });
+}
+exports.fetchSolutionsByUserId = fetchSolutionsByUserId;

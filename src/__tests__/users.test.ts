@@ -25,8 +25,7 @@ describe("GET /api/users", () => {
     expect(users.length).toBe(2);
 
     users.forEach((user: UserData) => {
-
-      expect(typeof user.user_id).toBe("number")
+      expect(typeof user.user_id).toBe("number");
 
       expect(typeof user.username).toBe("string");
       expect(typeof user.bio).toBe("string");
@@ -66,5 +65,31 @@ describe("GET /api/users/:user_id", () => {
     } = await request(app).get("/api/users/5000");
     expect(status).toBe(404);
     expect(msg).toBe("User does not exist!");
+  });
+  describe("/solutions", () => {
+    test("GET 200: returns an array of the user's solutions with kata_id, solution_id, solution", async () => {
+      const { body } = await request(app)
+        .get("/api/users/1/solutions")
+        .expect(200);
+
+      expect(body.solutions[0]).toMatchObject({
+        kata_id: expect.any(Number),
+        kata_name: expect.any(String),
+        solution_id: expect.any(Number),
+        solution: expect.any(String),
+      });
+    });
+    test("GET 400: responds with appropriate message and status code when given an invalid user_id", async () => {
+      const { body } = await request(app)
+        .get("/api/users/:banana/solutions")
+        .expect(400);
+      expect(body.msg).toBe("Bad Request");
+    });
+    test("GET 404: responds with an appropriate message and status code when given a valid user_id that has no solutions", async () => {
+      const { body } = await request(app)
+        .get("/api/users/4/solutions")
+        .expect(404);
+      expect(body.msg).toBe("No solutions found for that user");
+    });
   });
 });

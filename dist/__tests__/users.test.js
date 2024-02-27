@@ -52,4 +52,29 @@ const { db } = require("../db/connection");
         (0, globals_1.expect)(status).toBe(404);
         (0, globals_1.expect)(msg).toBe("User does not exist!");
     }));
+    (0, globals_1.describe)("/solutions", () => {
+        (0, globals_1.test)("GET 200: returns an array of the user's solutions with kata_id, solution_id, solution", () => __awaiter(void 0, void 0, void 0, function* () {
+            const { body } = yield request(app)
+                .get("/api/users/1/solutions")
+                .expect(200);
+            (0, globals_1.expect)(body.solutions[0]).toMatchObject({
+                kata_id: globals_1.expect.any(Number),
+                kata_name: globals_1.expect.any(String),
+                solution_id: globals_1.expect.any(Number),
+                solution: globals_1.expect.any(String),
+            });
+        }));
+        (0, globals_1.test)("GET 400: responds with appropriate message and status code when given an invalid user_id", () => __awaiter(void 0, void 0, void 0, function* () {
+            const { body } = yield request(app)
+                .get("/api/users/:banana/solutions")
+                .expect(400);
+            (0, globals_1.expect)(body.msg).toBe("Bad Request");
+        }));
+        (0, globals_1.test)("GET 404: responds with an appropriate message and status code when given a valid user_id that has no solutions", () => __awaiter(void 0, void 0, void 0, function* () {
+            const { body } = yield request(app)
+                .get("/api/users/4/solutions")
+                .expect(404);
+            (0, globals_1.expect)(body.msg).toBe("No solutions found for that user");
+        }));
+    });
 });
