@@ -100,6 +100,29 @@
       "avatar_img_url": "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f"
     }
   },
+  "GET /api/users/:user_id/solutions": {
+    "description": "returns an array of solution objects for that user",
+    "queries": [],
+    "requestFormat": {},
+    "exampleResponse": [
+      {
+        "solution_id": 1,
+        "user_id": 1,
+        "kata_id": 2,
+        "solution": "function squareRoot(n) { return Math.sqrt(n); }",
+        "votes": 0,
+        "kata_name": "Square Root"
+      },
+      {
+        "solution_id": 3,
+        "user_id": 1,
+        "kata_id": 3,
+        "solution": "This is a solution to the fill square problem submitted by Freezy Pop",
+        "votes": 0,
+        "kata_name": "Fill Square"
+      }
+    ]
+  },
   "POST /api/test/:kata_id": {
     "description": "Sends user solution to be tested on the server. Returns a results object logs, test results, and a boolean success key indicating if all tests have passed (true) or not (false). If success is true, this endpoint also posts the user’s input to the solutions table.",
     "queries": [],

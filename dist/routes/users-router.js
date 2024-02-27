@@ -4,6 +4,7 @@ const usersRouter = require("express").Router();
 const users_controllers_1 = require("../mvc/controllers/users.controllers");
 usersRouter.route("/").get(users_controllers_1.getUsers);
 usersRouter.route("/:user_id").get(users_controllers_1.getUserById);
+usersRouter.route("/:user_id/solutions").get(users_controllers_1.getSolutionsByUserId);
 module.exports = {
     usersRouter,
 };
